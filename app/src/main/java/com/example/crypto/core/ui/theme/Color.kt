@@ -1,4 +1,5 @@
-package com.example.crypto.ui.theme
+package com.example.crypto.core.ui.theme
+
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF5D5791)
@@ -217,9 +218,5 @@ val surfaceContainerDarkHighContrast = Color(0xFF2C3134)
 val surfaceContainerHighDarkHighContrast = Color(0xFF373C3F)
 val surfaceContainerHighestDarkHighContrast = Color(0xFF43474B)
 
-
-
-
-
-
-
+val greenLight = Color(0xFF129423)
+val greenDark = Color(0xFF79DC7A)

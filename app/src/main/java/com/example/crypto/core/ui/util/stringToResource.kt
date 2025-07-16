@@ -1,7 +1,9 @@
-package com.example.crypto
+package com.example.crypto.core.ui.util
 
-fun stringToResource(string: String): Int {
-    return when (string) {
+import com.example.crypto.R
+
+fun getDrawableIdForCoin(symbol: String): Int {
+    return when (symbol.lowercase()) {
         "btc" -> R.drawable.btc
         "eth" -> R.drawable.eth
         "wbtc" -> R.drawable.wbtc
