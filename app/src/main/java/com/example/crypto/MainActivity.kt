@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.crypto.core.ui.theme.CryptoTheme
+import com.example.crypto.feature.crypto.ui.CoinListScreen
+import com.example.crypto.feature.crypto.ui.CoinListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +25,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             CryptoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    val viewModel by viewModel<CoinListViewModel>()
+                    val state = viewModel.state.collectAsStateWithLifecycle()
+                    CoinListScreen(
+                        state.value,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
