@@ -1,4 +1,4 @@
-package com.example.crypto.feature.crypto.ui
+package com.example.crypto.feature.crypto.presentation.coin_list
 
 import com.example.crypto.core.domain.util.Error
 

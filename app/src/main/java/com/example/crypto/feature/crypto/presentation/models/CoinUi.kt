@@ -1,9 +1,9 @@
-package com.example.crypto.feature.crypto.ui.models
+package com.example.crypto.feature.crypto.presentation.models
 
 import android.icu.text.NumberFormat
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
-import com.example.crypto.core.ui.util.getDrawableIdForCoin
+import com.example.crypto.core.presentation.util.getDrawableIdForCoin
 import com.example.crypto.feature.crypto.domain.Coin
 import java.util.Locale
 

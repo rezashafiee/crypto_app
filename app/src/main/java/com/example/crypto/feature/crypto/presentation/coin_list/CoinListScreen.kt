@@ -1,6 +1,6 @@
-package com.example.crypto.feature.crypto.ui
+package com.example.crypto.feature.crypto.presentation.coin_list
 
-import android.graphics.Color
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,15 +9,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.crypto.core.ui.theme.CryptoTheme
-import com.example.crypto.feature.crypto.ui.components.CoinListItem
-import com.example.crypto.feature.crypto.ui.components.previewCoin
+import com.example.crypto.core.presentation.theme.CryptoTheme
+import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
+import com.example.crypto.feature.crypto.presentation.coin_list.components.CoinListItem
+import com.example.crypto.feature.crypto.presentation.coin_list.components.previewCoin
 
 @Composable
 fun CoinListScreen(
@@ -32,19 +32,17 @@ fun CoinListScreen(
             CircularProgressIndicator()
         }
     } else if (uiState.coins.isNotEmpty()) {
-        Surface(
-            color = MaterialTheme.colorScheme.surfaceContainer,
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(16.dp),
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(16.dp),
-            ) {
-                items(uiState.coins) {
-                    CoinListItem(it)
-                }
+            items(uiState.coins) {
+                CoinListItem(it)
             }
         }
-
     }
 }
 

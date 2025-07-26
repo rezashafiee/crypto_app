@@ -1,11 +1,12 @@
-package com.example.crypto.feature.crypto.ui
+package com.example.crypto.feature.crypto.presentation.coin_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crypto.core.domain.util.onError
 import com.example.crypto.core.domain.util.onSuccess
 import com.example.crypto.feature.crypto.domain.CoinListDataSource
-import com.example.crypto.feature.crypto.ui.models.toCoinUi
+import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
+import com.example.crypto.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,7 +24,7 @@ class CoinListViewModel(
         .onStart { loadCoins() }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
+            started = SharingStarted.Companion.WhileSubscribed(5000L),
             initialValue = CoinListUiState()
         )
 

@@ -1,6 +1,6 @@
-package com.example.crypto.feature.crypto.ui
+package com.example.crypto.feature.crypto.presentation.coin_list
 
-import com.example.crypto.feature.crypto.ui.models.CoinUi
+import com.example.crypto.feature.crypto.presentation.models.CoinUi
 
 data class CoinListUiState(
     val isLoading: Boolean = false,

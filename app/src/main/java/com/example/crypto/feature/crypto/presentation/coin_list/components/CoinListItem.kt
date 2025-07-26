@@ -1,4 +1,4 @@
-package com.example.crypto.feature.crypto.ui.components
+package com.example.crypto.feature.crypto.presentation.coin_list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -26,12 +26,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.crypto.core.ui.theme.CryptoTheme
-import com.example.crypto.core.ui.theme.greenDark
-import com.example.crypto.core.ui.theme.greenLight
+import com.example.crypto.core.presentation.components.CoinTitle
+import com.example.crypto.core.presentation.theme.CryptoTheme
+import com.example.crypto.core.presentation.theme.greenDark
+import com.example.crypto.core.presentation.theme.greenLight
 import com.example.crypto.feature.crypto.domain.Coin
-import com.example.crypto.feature.crypto.ui.models.CoinUi
-import com.example.crypto.feature.crypto.ui.models.toCoinUi
+import com.example.crypto.feature.crypto.presentation.models.CoinUi
+import com.example.crypto.feature.crypto.presentation.models.toCoinUi
 
 @Composable
 fun CoinListItem(
@@ -70,28 +71,9 @@ fun CoinListItem(
                 modifier = Modifier.weight(1f)
             )
             {
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            style = SpanStyle(
-                                fontWeight = FontWeight.Black,
-                                fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        ) {
-                            append(coinUi.name)
-                        }
-                        append(" ")
-                        withStyle(
-                            style = SpanStyle(
-                                fontWeight = FontWeight.Black,
-                                fontSize = 12.sp,
-                                color = MaterialTheme.colorScheme.outline
-                            )
-                        ) {
-                            append("(${coinUi.symbol})")
-                        }
-                    }
+                CoinTitle(
+                    coinUi.name,
+                    coinUi.symbol
                 )
                 Text(
                     text = "${coinUi.marketCapShorted.formatted} Billions",

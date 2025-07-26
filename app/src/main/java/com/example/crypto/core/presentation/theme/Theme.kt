@@ -1,4 +1,4 @@
-package com.example.crypto.core.ui.theme
+package com.example.crypto.core.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
