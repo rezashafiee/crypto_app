@@ -26,7 +26,9 @@ fun CoinListScreen(
 ) {
     if (uiState.isLoading) {
         Box(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surfaceContainer),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator()

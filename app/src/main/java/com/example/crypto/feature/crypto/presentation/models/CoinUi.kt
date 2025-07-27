@@ -21,6 +21,7 @@ data class CoinUi(
     val priceChangePercentage24h: DisplayableNumber,
 )
 
+@Immutable
 data class DisplayableNumber(
     val value: Double,
     val formatted: String,

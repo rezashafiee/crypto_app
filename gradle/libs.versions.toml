@@ -13,6 +13,9 @@ composeBom = "2025.07.00"
 uiTextGoogleFonts = "1.8.3"
 
 [libraries]
+androidx-adaptive = { module = "androidx.compose.material3.adaptive:adaptive" }
+androidx-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout" }
+androidx-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

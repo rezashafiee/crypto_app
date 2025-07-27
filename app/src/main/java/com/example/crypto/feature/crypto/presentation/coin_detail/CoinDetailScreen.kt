@@ -3,6 +3,7 @@ package com.example.crypto.feature.crypto.presentation.coin_detail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,7 +39,9 @@ fun CoinDetailScreen(
     if (state.isLoading) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
             CircularProgressIndicator()
         }
@@ -46,7 +49,9 @@ fun CoinDetailScreen(
         val coin = state.selectedCoin
 
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .background(color = MaterialTheme.colorScheme.surfaceContainer),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -74,9 +79,6 @@ private fun CoinDetailScreenPreview() {
     CoinDetailScreen(
         state = CoinListUiState(
             selectedCoin = previewCoin
-        ),
-        modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.background
         )
     )
 }
