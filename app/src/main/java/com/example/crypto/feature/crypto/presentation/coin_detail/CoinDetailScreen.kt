@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -47,28 +48,6 @@ fun CoinDetailScreen(
     } else if (state.selectedCoin != null) {
         val coin = state.selectedCoin
 
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.surfaceContainer),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = stringResource(R.string.content_description_back_button),
-                modifier = Modifier.size(24.dp)
-            )
-            CoinTitle(
-                coin.name,
-                coin.symbol
-            )
-            Icon(
-                imageVector = Icons.Default.Star,
-                contentDescription = "Favorite button",
-                modifier = Modifier.size(24.dp)
-            )
-        }
     }
 }
 
