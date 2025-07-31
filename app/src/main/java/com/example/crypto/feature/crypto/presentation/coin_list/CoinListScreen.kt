@@ -16,12 +16,13 @@ import com.example.crypto.core.presentation.components.LoadingView
 import com.example.crypto.core.presentation.theme.CryptoTheme
 import com.example.crypto.feature.crypto.presentation.coin_list.components.CoinListItem
 import com.example.crypto.feature.crypto.presentation.coin_list.components.previewCoin
+import com.example.crypto.feature.crypto.presentation.models.CoinUi
 
 @Composable
 fun CoinListScreen(
     uiState: CoinListUiState,
     modifier: Modifier = Modifier,
-    onItemClick: () -> Unit = {}
+    onItemClick: (coin: CoinUi) -> Unit = {}
 ) {
     if (uiState.isLoading) {
         LoadingView(modifier)
@@ -36,7 +37,7 @@ fun CoinListScreen(
             items(uiState.coins) {
                 CoinListItem(
                     coinUi = it,
-                    modifier = Modifier.clickable(onClick = onItemClick)
+                    modifier = Modifier.clickable(onClick = { onItemClick(it) })
                 )
             }
         }

@@ -45,7 +45,8 @@ class MainActivity : ComponentActivity() {
                             AnimatedPane {
                                 CoinListScreen(
                                     state.value,
-                                    onItemClick = {
+                                    onItemClick = { item ->
+                                        viewModel.onCoinClicked(item)
                                         scope.launch {
                                             listDetailNavigator.navigateTo(
                                                 ListDetailPaneScaffoldRole.Detail,
@@ -61,16 +62,12 @@ class MainActivity : ComponentActivity() {
                                 listDetailNavigator.currentDestination?.contentKey?.let {
                                     CoinDetailScreen(
                                         state = state.value,
-                                        windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+                                        windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass,
+                                        modifier = Modifier.padding(innerPadding)
                                     )
                                 }
                             }
                         }
-                    )
-
-                    CoinListScreen(
-                        state.value,
-                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }

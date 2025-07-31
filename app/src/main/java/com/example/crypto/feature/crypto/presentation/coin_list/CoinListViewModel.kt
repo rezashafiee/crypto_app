@@ -6,6 +6,7 @@ import com.example.crypto.core.domain.util.onError
 import com.example.crypto.core.domain.util.onSuccess
 import com.example.crypto.feature.crypto.domain.CoinListDataSource
 import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
+import com.example.crypto.feature.crypto.presentation.models.CoinUi
 import com.example.crypto.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +31,16 @@ class CoinListViewModel(
 
     private val _event = MutableSharedFlow<CoinListEvent>()
     val event = _event.asSharedFlow()
+
+    fun onCoinClicked(coin: CoinUi) {
+        viewModelScope.launch {
+            _state.update { state ->
+                state.copy(
+                    selectedCoin = coin
+                )
+            }
+        }
+    }
 
     private fun loadCoins() {
         viewModelScope.launch {
