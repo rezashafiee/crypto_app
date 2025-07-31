@@ -1,6 +1,7 @@
 package com.example.crypto.feature.crypto.presentation.coin_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +20,8 @@ import com.example.crypto.feature.crypto.presentation.coin_list.components.previ
 @Composable
 fun CoinListScreen(
     uiState: CoinListUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: () -> Unit = {}
 ) {
     if (uiState.isLoading) {
         LoadingView(modifier)
@@ -32,7 +34,10 @@ fun CoinListScreen(
                 .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
             items(uiState.coins) {
-                CoinListItem(it)
+                CoinListItem(
+                    coinUi = it,
+                    modifier = Modifier.clickable(onClick = onItemClick)
+                )
             }
         }
     }

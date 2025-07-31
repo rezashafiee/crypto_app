@@ -1,45 +1,26 @@
 package com.example.crypto.feature.crypto.presentation.coin_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.crypto.R
-import com.example.crypto.core.presentation.components.CoinTitle
+import androidx.window.core.layout.WindowSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.crypto.core.presentation.components.LoadingView
+import com.example.crypto.feature.crypto.presentation.coin_detail.components.CompactView
 import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
 import com.example.crypto.feature.crypto.presentation.coin_list.components.previewCoin
 
 @Composable
 fun CoinDetailScreen(
     state: CoinListUiState,
+    windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier
 ) {
 
@@ -47,7 +28,41 @@ fun CoinDetailScreen(
         LoadingView(modifier)
     } else if (state.selectedCoin != null) {
         val coin = state.selectedCoin
+        when (windowSizeClass.windowWidthSizeClass) {
+            WindowWidthSizeClass.COMPACT -> {
+                CompactView(coin)
+            }
 
+            WindowWidthSizeClass.MEDIUM -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black)
+                ) {
+                    Text(
+                        text = "TabletView Under construction",
+                        modifier = Modifier.align(Alignment.Center),
+                        color = Color.White
+                    )
+                }
+            }
+
+            WindowWidthSizeClass.EXPANDED -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black)
+                ) {
+                    Text(
+                        text = "DesktopView Under construction",
+                        modifier = Modifier.align(Alignment.Center),
+                        color = Color.White
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -57,6 +72,7 @@ private fun CoinDetailScreenPreview() {
     CoinDetailScreen(
         state = CoinListUiState(
             selectedCoin = previewCoin
-        )
+        ),
+        windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
     )
 }
