@@ -23,10 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.crypto.R
 import com.example.crypto.core.presentation.components.CoinTitle
+import com.example.crypto.core.presentation.components.LoadingView
 import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
 import com.example.crypto.feature.crypto.presentation.coin_list.components.previewCoin
 
@@ -37,14 +43,7 @@ fun CoinDetailScreen(
 ) {
 
     if (state.isLoading) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.surfaceContainer)
-        ) {
-            CircularProgressIndicator()
-        }
+        LoadingView(modifier)
     } else if (state.selectedCoin != null) {
         val coin = state.selectedCoin
 
