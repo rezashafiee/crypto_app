@@ -5,7 +5,7 @@ import com.example.crypto.feature.crypto.data.CoinListRemoteDataSource
 import com.example.crypto.feature.crypto.domain.CoinListDataSource
 import com.example.crypto.feature.crypto.presentation.coin_list.CoinListViewModel
 import io.ktor.client.engine.cio.CIO
-import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
@@ -15,9 +15,5 @@ val appModule = module {
             httpClient = get()
         )
     }
-    viewModel {
-        CoinListViewModel(
-            coinListDataSource = get()
-        )
-    }
+    viewModelOf(::CoinListViewModel)
 }
