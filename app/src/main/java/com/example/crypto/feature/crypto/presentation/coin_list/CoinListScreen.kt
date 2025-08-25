@@ -34,7 +34,7 @@ fun CoinListScreen(
                 .fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
-            items(uiState.coins) {
+            items(uiState.coins, key = { coinUi -> coinUi.id }) {
                 CoinListItem(
                     coinUi = it,
                     modifier = Modifier.clickable(onClick = { onItemClick(it) })
