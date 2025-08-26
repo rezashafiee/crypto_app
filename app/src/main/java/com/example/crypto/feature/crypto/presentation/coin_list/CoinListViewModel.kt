@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crypto.core.domain.util.onError
 import com.example.crypto.core.domain.util.onSuccess
-import com.example.crypto.feature.crypto.domain.CoinListDataSource
-import com.example.crypto.feature.crypto.presentation.coin_list.CoinListUiState
+import com.example.crypto.feature.crypto.domain.CoinListRemoteDataSource
 import com.example.crypto.feature.crypto.presentation.models.CoinUi
 import com.example.crypto.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CoinListViewModel(
-    val coinListDataSource: CoinListDataSource
+    val coinListDataSource: CoinListRemoteDataSource
 ): ViewModel() {
     private val _state = MutableStateFlow(CoinListUiState())
     val state = _state
