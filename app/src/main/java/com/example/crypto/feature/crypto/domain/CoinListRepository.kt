@@ -1,5 +1,7 @@
 package com.example.crypto.feature.crypto.domain
 
-interface CoinListRepository {
+import kotlinx.coroutines.flow.Flow
 
+interface CoinListRepository {
+    suspend fun getCoins(): Flow<List<Coin>>
 }
