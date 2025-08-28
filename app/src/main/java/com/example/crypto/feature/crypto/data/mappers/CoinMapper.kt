@@ -18,3 +18,5 @@ fun CoinDto.toCoin() = Coin(
 fun priceChange(price: Double, changePercent: Double): Double {
     return price * changePercent
 }
+
+// Todo: convert dto to entity and vice versa

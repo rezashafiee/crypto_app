@@ -3,7 +3,7 @@ package com.example.crypto.core.data.db.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "coins")
 data class CoinEntity(
     @PrimaryKey val id: String,
     val rank: String,
