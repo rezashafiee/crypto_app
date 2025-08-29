@@ -51,3 +51,14 @@ fun CoinEntity.toCoin() = Coin(
     rank = rank,
     symbol = symbol
 )
+
+fun Coin.toCoinEntity() = CoinEntity(
+    id = id,
+    name = name,
+    currentPrice = currentPrice,
+    priceChangePercentage24h = priceChangePercentage24h,
+    priceChange24h = priceChange24h,
+    marketCap = marketCap,
+    rank = rank,
+    symbol = symbol
+)
