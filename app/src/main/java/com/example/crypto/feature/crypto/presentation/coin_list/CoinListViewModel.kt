@@ -2,9 +2,8 @@ package com.example.crypto.feature.crypto.presentation.coin_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.crypto.core.domain.util.onError
-import com.example.crypto.core.domain.util.onSuccess
-import com.example.crypto.feature.crypto.domain.CoinListRemoteDataSource
+import com.example.crypto.core.domain.util.RemoteSyncResult
+import com.example.crypto.feature.crypto.domain.CoinListRepository
 import com.example.crypto.feature.crypto.presentation.models.CoinUi
 import com.example.crypto.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,8 +16,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CoinListViewModel(
-    val coinListDataSource: CoinListRemoteDataSource
-): ViewModel() {
+    val coinListRepository: CoinListRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(CoinListUiState())
     val state = _state
         .onStart { loadCoins() }
@@ -30,6 +29,16 @@ class CoinListViewModel(
 
     private val _event = MutableSharedFlow<CoinListEvent>()
     val event = _event.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            coinListRepository.remoteSyncEvents
+                .collect { remoteSyncResult ->
+                    if (remoteSyncResult is RemoteSyncResult.Error)
+                        _event.emit(CoinListEvent.LoadCoinsError(remoteSyncResult.error))
+                }
+        }
+    }
 
     fun onCoinClicked(coin: CoinUi) {
         viewModelScope.launch {
@@ -44,8 +53,8 @@ class CoinListViewModel(
     private fun loadCoins() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            coinListDataSource.getCoins()
-                .onSuccess { coins ->
+            coinListRepository.getCoins()
+                .collect { coins ->
                     _state.update { state ->
                         state.copy(
                             isLoading = false,
@@ -53,10 +62,6 @@ class CoinListViewModel(
                         )
                     }
                 }
-                .onError { error ->
-                    _event.emit(CoinListEvent.LoadCoinsError(error))
-                }
         }
     }
-
 }
