@@ -19,4 +19,5 @@ dependencies {
     api(project(":core:domain"))
 
     implementation(libs.coroutines.core)
+    implementation(libs.paging.common)
 }
