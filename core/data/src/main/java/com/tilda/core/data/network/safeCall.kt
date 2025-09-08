@@ -15,14 +15,14 @@ suspend inline fun <reified T> safeCall(
     val response = try {
         execute()
     } catch (e: UnresolvedAddressException) {
-        return Result.Error(NetworkError.NO_INTERNET_ERROR)
+        return Result.Error(NetworkError.NoInternetError(e.toString()))
     } catch (e: SerializationException) {
-        return Result.Error(NetworkError.SERIALIZATION_ERROR)
+        return Result.Error(NetworkError.SerializationError(e.toString()))
     } catch (e: Exception) {
         // if the coroutine would be canceled then this could catch the CancellationException
         // therefor the following line is added
         coroutineContext.ensureActive()
-        return Result.Error(NetworkError.UNKNOWN_ERROR)
+        return Result.Error(NetworkError.UnknownError(e.toString()))
     }
 
     return responseToResult(response)

@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.koin.android)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.room.runtime)
 
     implementation(libs.paging.runtime)
 

@@ -22,9 +22,7 @@ fun CoinDetailScreen(
     modifier: Modifier = Modifier
 ) {
 
-    if (state.isLoading) {
-        LoadingView(modifier)
-    } else if (state.selectedCoin != null) {
+    if (state.selectedCoin != null) {
         val coin = state.selectedCoin
         BoxWithConstraints {
             if (this.maxWidth < 600.dp) {

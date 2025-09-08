@@ -1,10 +1,10 @@
 package com.tilda.core.domain.util
 
-enum class NetworkError : Error {
-    NO_INTERNET_ERROR,
-    TOO_MANY_REQUESTS_ERROR,
-    TIMEOUT_ERROR,
-    SERIALIZATION_ERROR,
-    SERVER_ERROR,
-    UNKNOWN_ERROR
+sealed class NetworkError : DomainError() {
+    data class NoInternetError(val content: String = "") : NetworkError()
+    data class TooManyRequestsError(val content: String = "") : NetworkError()
+    data class TimeoutError(val content: String = "") : NetworkError()
+    data class ServerError(val content: String = "") : NetworkError()
+    data class SerializationError(val content: String = "") : NetworkError()
+    data class UnknownError(val content: String = "") : NetworkError()
 }

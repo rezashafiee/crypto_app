@@ -3,7 +3,6 @@ package com.tilda.crypto
 import android.app.Application
 import com.tilda.core.data.db.di.databaseModule
 import com.tilda.core.data.network.di.networkModule
-import com.tilda.crypto.di.appModule
 import com.tilda.feature.crypto.data.di.cryptoDataModule
 import com.tilda.feature.crypto.presentation.di.cryptoPresentationModule
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +15,6 @@ class CoinTrackerApp : Application() {
         super.onCreate()
         startKoin {
             modules(
-                appModule,
                 databaseModule,
                 networkModule,
                 cryptoDataModule,

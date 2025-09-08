@@ -6,17 +6,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.tilda.core.domain.util.DomainError
+import com.tilda.core.presentation.theme.CryptoTheme
+import com.tilda.core.presentation.util.getErrorMessage
 import com.tilda.feature.crypto.presentation.coin_list.components.CoinListItem
 import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
-import com.tilda.core.presentation.components.LoadingView
 import com.tilda.feature.crypto.presentation.models.CoinUi
-import com.tilda.core.presentation.theme.CryptoTheme
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun CoinListScreen(
@@ -24,21 +31,51 @@ fun CoinListScreen(
     modifier: Modifier = Modifier,
     onItemClick: (coin: CoinUi) -> Unit = {}
 ) {
-    if (uiState.isLoading) {
-        LoadingView(modifier)
-    } else if (uiState.coins.isNotEmpty()) {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(16.dp),
-            modifier = modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.surfaceContainer)
-        ) {
-            items(uiState.coins, key = { coinUi -> coinUi.id }) {
+
+    val context = LocalContext.current
+    val pagedCoins = uiState.pagedCoins.collectAsLazyPagingItems()
+
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(16.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.surfaceContainer)
+    ) {
+        items(pagedCoins.itemCount) { index ->
+            pagedCoins[index]?.let {
                 CoinListItem(
                     coinUi = it,
                     modifier = Modifier.clickable(onClick = { onItemClick(it) })
                 )
+            }
+        }
+
+        pagedCoins.apply {
+            when {
+                loadState.refresh is LoadState.Loading -> {
+                    item { CircularProgressIndicator() }
+                }
+
+                loadState.refresh is LoadState.Error -> {
+                    val e = pagedCoins.loadState.refresh as LoadState.Error
+                    item {
+                        Text(getErrorMessage(context, e.error as DomainError))
+                        Text(e.error.toString())
+                    }
+                }
+
+                loadState.append is LoadState.Loading -> {
+                    item { CircularProgressIndicator() }
+                }
+
+                loadState.append is LoadState.Error -> {
+                    val e = pagedCoins.loadState.append as LoadState.Error
+                    item {
+                        Text(getErrorMessage(context, e.error as DomainError))
+                        Text(e.error.toString())
+                    }
+                }
             }
         }
     }
@@ -50,7 +87,11 @@ private fun CoinListScreenPreview() {
     CryptoTheme {
         CoinListScreen(
             uiState = CoinListUiState(
-                coins = (1..10).map { previewCoin.copy(id = it.toString()) }
+                pagedCoins = flowOf(
+                    PagingData.from(
+                        (1..10).map { previewCoin.copy(id = it.toString()) }
+                    )
+                )
             )
         )
     }

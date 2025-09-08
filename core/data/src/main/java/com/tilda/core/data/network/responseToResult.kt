@@ -13,13 +13,13 @@ suspend inline fun <reified T> responseToResult(response: HttpResponse): Result<
             try {
                 Result.Success(response.body<T>())
             } catch (e: NoTransformationFoundException) {
-                Result.Error(NetworkError.SERIALIZATION_ERROR)
+                Result.Error(NetworkError.SerializationError(e.toString()))
             }
         }
 
-        408 -> Result.Error(NetworkError.TIMEOUT_ERROR)
-        429 -> Result.Error(NetworkError.TOO_MANY_REQUESTS_ERROR)
-        in 500..599 -> Result.Error(NetworkError.SERVER_ERROR)
-        else -> Result.Error(NetworkError.UNKNOWN_ERROR)
+        408 -> Result.Error(NetworkError.TimeoutError(response.body()))
+        429 -> Result.Error(NetworkError.TooManyRequestsError(response.body()))
+        in 500..599 -> Result.Error(NetworkError.ServerError(response.body()))
+        else -> Result.Error(NetworkError.UnknownError(response.body()))
     }
 }
