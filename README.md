@@ -61,15 +61,3 @@ The project is also structured using **multi-module approach**, with a dedicated
     *   `feature/crypto/data`: Data sources and repositories specific to the crypto feature.
     *   `feature/crypto/domain`: Use cases and domain models for the crypto feature.
     *   `feature/crypto/presentation`: ViewModels, Composable screens, and UI models for the crypto feature.
-
-## Building and Running
-
-1.  Clone the repository.
-2.  Open the project in Android Studio.
-3.  Let Gradle sync the project.
-4.  Run the `app` module on an Android emulator or device.
-
----
-
-_This README provides a general overview. You can add more specific details about API endpoints, setup instructions for API keys (if any), or contribution guidelines as needed._
-
