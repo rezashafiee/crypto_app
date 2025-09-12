@@ -8,6 +8,7 @@ Crypto App is an Android application designed to track cryptocurrency informatio
 *   **View Coin Details:** Shows detailed information for a selected cryptocurrency, potentially including price charts.
 *   **Offline Caching:** Utilizes a local database to cache cryptocurrency data for offline access and faster loading.
 *   **Modern UI:** Built with Jetpack Compose for a modern, declarative UI.
+*   **Adaptive UI with Jetpack Compose:** Leverages Jetpack Compose to create a responsive user interface that adapts to different screen sizes and orientations, effectively implementing patterns like list-detail views for optimal user experience on both phones and tablets.
 
 ## Architecture
 
