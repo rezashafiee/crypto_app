@@ -12,14 +12,7 @@ Crypto App is an Android application designed to track cryptocurrency informatio
 ## Architecture
 
 The project follows a **Clean Architecture** approach, separating concerns into distinct layers. The core idea is that the **Domain layer is the center of the architecture**, and both the Presentation and Data layers depend on it, but the Domain layer does not depend on them.
-```mermaid
-graph LR
-    P[Presentation Layer <br/> (UI, ViewModel, 
-etc.)] --> D{Domain Layer <br/> (Use Cases, Entities, <br/> Repository Interfaces)}
-    DA[Data Layer <br/> (Repository Impl., <br/> API, Database)] --> D
 
-```
-Or, as a simpler text diagram:
 ```
 
 +---------------------+      +---------------------+      +---------------------+
