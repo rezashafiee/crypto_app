@@ -1,6 +1,5 @@
 package com.tilda.feature.crypto.presentation.coin_detail.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,11 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
-import com.tilda.feature.crypto.presentation.R
+import coil3.compose.AsyncImage
 import com.tilda.core.presentation.components.CoinTitle
-import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.core.presentation.theme.CryptoTheme
+import com.tilda.feature.crypto.presentation.R
+import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
+import com.tilda.feature.crypto.presentation.models.CoinUi
 
 @Composable
 fun CompactView(
@@ -95,8 +95,8 @@ fun CompactView(
                     priceChangePercentage24h = coinUi.priceChangePercentage24h
                 )
             }
-            Image(
-                imageVector = ImageVector.vectorResource(coinUi.iconRes),
+            AsyncImage(
+                model = coinUi.logoUrl,
                 contentDescription = "${coinUi.name} logo",
                 modifier = Modifier.size(56.dp)
             )

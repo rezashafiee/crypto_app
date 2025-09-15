@@ -1,44 +1,20 @@
 package com.tilda.feature.crypto.data.mappers
 
+import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.feature.crypto.data.dto.CoinDto
 import com.tilda.feature.crypto.domain.Coin
-import com.tilda.core.data.db.model.CoinEntity
 
 fun CoinDto.toCoin() = Coin(
     id = id,
     name = name,
     currentPrice = priceUsd,
     priceChangePercentage24h = changePercent24Hr,
-    priceChange24h = priceChange(priceUsd, changePercent24Hr),
+    priceChange24h = change24Hr,
     marketCap = marketCapUsd,
-    rank = rank,
-    symbol = symbol
-)
-
-
-fun priceChange(price: Double, changePercent: Double): Double {
-    return price * changePercent
-}
-
-fun CoinDto.toCoinEntity() = CoinEntity(
-    id = id,
-    name = name,
-    currentPrice = priceUsd,
-    priceChangePercentage24h = changePercent24Hr,
-    priceChange24h = priceChange(priceUsd, changePercent24Hr),
-    marketCap = marketCapUsd,
-    rank = rank,
-    symbol = symbol
-)
-
-fun CoinEntity.toCoinDto() = CoinDto(
-    id = id,
-    name = name,
-    priceUsd = currentPrice,
-    changePercent24Hr = priceChangePercentage24h,
-    marketCapUsd = marketCap,
-    rank = rank,
-    symbol = symbol
+    rank = rank.marketCapRank.toString(),
+    symbol = symbol,
+    logoUrl = logoUrl ?: "",
+    lastUpdate = lastUpdate
 )
 
 fun CoinEntity.toCoin() = Coin(
@@ -49,7 +25,9 @@ fun CoinEntity.toCoin() = Coin(
     priceChange24h = priceChange24h,
     marketCap = marketCap,
     rank = rank,
-    symbol = symbol
+    symbol = symbol,
+    logoUrl = logoUrl,
+    lastUpdate = lastUpdate
 )
 
 fun Coin.toCoinEntity() = CoinEntity(
@@ -60,5 +38,7 @@ fun Coin.toCoinEntity() = CoinEntity(
     priceChange24h = priceChange24h,
     marketCap = marketCap,
     rank = rank,
-    symbol = symbol
+    symbol = symbol,
+    logoUrl = logoUrl,
+    lastUpdate = lastUpdate
 )

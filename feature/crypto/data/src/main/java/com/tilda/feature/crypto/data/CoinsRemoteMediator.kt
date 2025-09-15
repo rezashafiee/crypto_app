@@ -12,6 +12,7 @@ import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.Result
 import com.tilda.feature.crypto.data.mappers.toCoinEntity
 import com.tilda.feature.crypto.domain.CoinListRemoteDataSource
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class CoinsRemoteMediator(
@@ -20,37 +21,37 @@ class CoinsRemoteMediator(
 ) : RemoteMediator<Int, CoinEntity>() {
 
     private val coinDao = coinDatabase.coinDao()
+    private val sortBy = "TOTAL_MKT_CAP_USD"
+    private val sortDirection = "DESC"
 
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, CoinEntity>
     ): MediatorResult {
+
+        val pageSize = state.config.pageSize
+
         return try {
-            val loadKeyOffset = when (loadType) {
-                LoadType.REFRESH -> 0
+            val pageNumber = when (loadType) {
+                LoadType.REFRESH -> 1
                 LoadType.PREPEND -> return Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
-                    /*if (state.lastItemOrNull() == null) {
-                        return Success(endOfPaginationReached = true)
-                    }*/
-
-                    val numberOfItems = state.pages.sumOf { page -> page.data.size }
-
-                    if (numberOfItems == 0) {
-                        return Success(endOfPaginationReached = true)
-                    } else {
-                        numberOfItems
-                    }
+                    val totalItems = coinDao.countItems()
+                    val nextPage = totalItems / pageSize + 1
+                    nextPage
                 }
             }
 
-            val limit = state.config.pageSize
-
             when (val apiResult =
-                remoteDataSource.getCoins(limit = limit, offset = loadKeyOffset)) {
+                remoteDataSource.getCoins(
+                    pageSize = pageSize,
+                    page = pageNumber,
+                    sortBy = sortBy,
+                    sortDirection = sortDirection
+                )) {
                 is Result.Success -> {
                     val coins = apiResult.data
-                    val endOfPaginationReached = coins.isEmpty() || coins.size < limit
+                    val endOfPaginationReached = coins.isEmpty() || coins.size < pageSize
 
                     coinDatabase.withTransaction {
                         if (loadType == LoadType.REFRESH) {
@@ -70,6 +71,25 @@ class CoinsRemoteMediator(
 
         } catch (e: Exception) {
             Error(e)
+        }
+    }
+
+    override suspend fun initialize(): InitializeAction {
+        val cacheTimeout = TimeUnit.MILLISECONDS
+            .convert(
+                1L, TimeUnit.HOURS
+            )
+        val currentTime = System.currentTimeMillis()
+        val lastUpdated = TimeUnit.MILLISECONDS
+            .convert(
+                coinDao.getLastUpdated(), TimeUnit.SECONDS
+            )
+        val passedTime = currentTime - lastUpdated
+
+        return if (passedTime <= cacheTimeout) {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
         }
     }
 }

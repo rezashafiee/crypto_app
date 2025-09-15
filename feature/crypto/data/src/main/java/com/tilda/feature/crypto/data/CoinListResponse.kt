@@ -1,9 +1,18 @@
 package com.tilda.feature.crypto.data
 
 import com.tilda.feature.crypto.data.dto.CoinDto
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CoinListResponse(
-    val data: List<CoinDto>
+    @SerialName("Data")
+    val data: Data
 )
+
+@Serializable
+data class Data(
+    @SerialName("LIST")
+    val list: List<CoinDto>
+)
+

@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.compose.ui.text.google.fonts)
     implementation(libs.compose.material3)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
     implementation(libs.paging.compose)
 
     androidTestImplementation(platform(libs.compose.bom))
