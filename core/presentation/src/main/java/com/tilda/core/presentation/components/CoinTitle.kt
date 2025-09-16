@@ -20,7 +20,7 @@ fun CoinTitle(
             withStyle(
                 style = SpanStyle(
                     fontWeight = FontWeight.Black,
-                    fontSize = 14.sp,
+                    fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             ) {
@@ -30,7 +30,7 @@ fun CoinTitle(
             withStyle(
                 style = SpanStyle(
                     fontWeight = FontWeight.Black,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.outline
                 )
             ) {

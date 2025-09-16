@@ -45,7 +45,7 @@ fun CoinListItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(12.dp)
@@ -73,20 +73,20 @@ fun CoinListItem(
                 Text(
                     text = "${coinUi.marketCapShorted.formatted} Billions",
                     color = MaterialTheme.colorScheme.outline,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.weight(1f)
-            ) {
+            )
+            {
                 Text(
                     text = coinUi.currentPrice.formatted,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Black,
-                    fontSize = 14.sp,
+                    fontSize = 12.sp,
                 )
                 Text(
                     text = "${coinUi.priceChange24h.formatted} (${coinUi.priceChangePercentage24h.formatted}%)",
@@ -96,7 +96,7 @@ fun CoinListItem(
                         MaterialTheme.colorScheme.error
                     },
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                 )
             }
         }
