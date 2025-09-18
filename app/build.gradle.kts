@@ -27,18 +27,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://rest.coincap.io/v3/\""
-            )
-        }
-        debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://rest.coincap.io/v3/\""
-            )
         }
     }
     compileOptions {
@@ -49,6 +37,23 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
+    }
+
+    lint {
+        // Fail the build on lint errors
+        abortOnError = true
+
+        // Treat all warnings as errors (optional but good for CI)
+        warningsAsErrors = true
+
+        // Write lint results to HTML & SARIF (for GitHub Actions integration)
+        htmlReport = true
+        sarifReport = true
+
+        // Exclude generated sources (to avoid noise)
+        checkGeneratedSources = false
+
+        checkDependencies = true
     }
 }
 
@@ -67,7 +72,7 @@ dependencies {
     implementation(project(":feature:crypto:data"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
 
     implementation(platform(libs.compose.bom))
