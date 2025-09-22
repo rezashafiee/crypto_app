@@ -1,18 +1,17 @@
 # Crypto App
 
-Crypto App is an Android application designed to track cryptocurrency information. **It serves as a showcase project demonstrating how to implement an Android application using a domain-centric Clean Architecture and a modular structure.** It allows users to browse a list of cryptocurrencies and view details for specific coins.
+Crypto App is an Android application designed to track cryptocurrency information. **It serves as a showcase project demonstrating how to implement an Android application using Clean Architecture and a modular structure.** It allows users to browse a list of cryptocurrencies and view details for specific coins.
 
 ## Features
 
 *   **Browse Cryptocurrencies:** Displays a paginated list of available cryptocurrencies.
 *   **View Coin Details:** Shows detailed information for a selected cryptocurrency, potentially including price charts.
 *   **Offline Caching:** Utilizes a local database to cache cryptocurrency data for offline access and faster loading.
-*   **Modern UI:** Built with Jetpack Compose for a modern, declarative UI.
-*   **Adaptive UI with Jetpack Compose:** Leverages Jetpack Compose to create a responsive user interface that adapts to different screen sizes and orientations, effectively implementing patterns like list-detail views for optimal user experience on both phones and tablets.
+*   **Modern and Adaptive UI:** Leverages Jetpack Compose to create a responsive user interface that adapts to different screen sizes and orientations, effectively implementing patterns like list-detail views for optimal user experience on both phones and tablets.
 
 ## Architecture
 
-The project follows a **Clean Architecture** approach, separating concerns into distinct layers. The core idea is that the **Domain layer is the center of the architecture**, and both the Presentation and Data layers depend on it, but the Domain layer does not depend on them.
+The core idea is that the **Domain layer is the center of the architecture**, and both the Presentation and Data layers depend on it, but the Domain layer does not depend on them.
 
 ```
 
@@ -23,26 +22,21 @@ The project follows a **Clean Architecture** approach, separating concerns into 
 
 ```
 *   **Data Layer:** Responsible for providing data to the application, whether from a remote API or a local database. It includes implementations of repository interfaces defined in the Domain layer.
-    *   Modules: `core/data`, `feature/crypto/data`
 *   **Domain Layer:** Contains the business logic of the application, including use cases, domain models, and repository interfaces. It is independent of the Android framework and any other layer.
-    *   Modules: `core/domain`, `feature/crypto/domain`
 *   **Presentation Layer:** Handles the UI and user interaction, using an **MVVM (Model-View-ViewModel)** pattern. It interacts with the Domain layer through use cases.
-    *   Modules: `core/presentation`, `feature/crypto/presentation`
 
 The project is also structured using **multi-module approach**, with a dedicated `app` module and feature-specific modules (e.g., `feature/crypto`) to promote separation of concerns, scalability, and faster build times.
 
 ## Tech Stack & Libraries
 
 *   **Kotlin:** Primary programming language.
-*   **Jetpack Compose:** For building the user interface.
+*   **Jetpack Compose:** For building the UI.
 *   **Coroutines & Flow:** For asynchronous programming.
 *   **Ktor Client:** For making network requests to fetch cryptocurrency data.
 *   **Room:** For local data persistence (caching).
 *   **Paging 3:** For efficiently loading and displaying large lists of data.
 *   **Koin:** For dependency injection.
-*   **ViewModel:** Part of Android Jetpack, used to store and manage UI-related data in a lifecycle-conscious way.
-*   **WorkManager:** For deferrable background tasks (potentially for data synchronization).
-*   **Gradle (Kotlin DSL):** For build automation.
+*   **Konsist:** For enforcing code consistency and architectural rules.
 
 ## Modules
 
