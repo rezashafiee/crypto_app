@@ -3,16 +3,15 @@ package com.tilda.feature.crypto.presentation.models
 import android.icu.text.NumberFormat
 import androidx.compose.runtime.Immutable
 import com.tilda.feature.crypto.domain.Coin
-import com.tilda.core.presentation.util.getDrawableIdForCoin
 import java.util.Locale
 
 @Immutable
 data class CoinUi(
-    val id: String,
+    val id: Int,
     val rank: String,
     val name: String,
     val symbol: String,
-    val iconRes: Int,
+    val logoUrl: String,
     val currentPrice: DisplayableNumber,
     val marketCap: DisplayableNumber,
     val marketCapShorted: DisplayableNumber,
@@ -44,7 +43,7 @@ fun Coin.toCoinUi() = CoinUi(
     rank = rank,
     name = name,
     symbol = symbol,
-    iconRes = getDrawableIdForCoin(symbol),
+    logoUrl = logoUrl,
     currentPrice = currentPrice.toDisplayableNumber().addCurrencySign(),
     marketCap = marketCap.toDisplayableNumber().addCurrencySign(),
     marketCapShorted = (marketCap / 1000000000).toDisplayableNumber().addCurrencySign(),

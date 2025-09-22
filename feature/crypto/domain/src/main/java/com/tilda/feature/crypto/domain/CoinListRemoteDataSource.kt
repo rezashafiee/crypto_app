@@ -4,5 +4,10 @@ import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.domain.util.Result
 
 interface CoinListRemoteDataSource {
-    suspend fun getCoins(limit: Int, offset: Int): Result<List<Coin>, NetworkError>
+    suspend fun getCoins(
+        pageSize: Int,
+        page: Int,
+        sortBy: String,
+        sortDirection: String
+    ): Result<List<Coin>, NetworkError>
 }

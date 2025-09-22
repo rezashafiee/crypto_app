@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Ignore issues that your team doesn’t care about -->
+    <issue id="TypographyDashes" severity="ignore" />
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+    <issue id="GradleDependency" severity="error" />
+
+    <!-- Enforce accessibility warnings -->
+    <issue id="ContentDescription" severity="error" />
+    <issue id="LabelFor" severity="error" />
+
+    <!-- Example: enforce security-related checks -->
+    <issue id="AllowBackup" severity="error" />
+    <issue id="ExportedReceiver" severity="error" />
+</lint>

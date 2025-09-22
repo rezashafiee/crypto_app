@@ -1,6 +1,5 @@
 package com.tilda.feature.crypto.presentation.coin_list.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,19 +16,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tilda.feature.crypto.domain.Coin
+import coil3.compose.AsyncImage
 import com.tilda.core.presentation.components.CoinTitle
-import com.tilda.feature.crypto.presentation.models.CoinUi
-import com.tilda.feature.crypto.presentation.models.toCoinUi
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.theme.greenDark
 import com.tilda.core.presentation.theme.greenLight
+import com.tilda.feature.crypto.domain.Coin
+import com.tilda.feature.crypto.presentation.models.CoinUi
+import com.tilda.feature.crypto.presentation.models.toCoinUi
 
 @Composable
 fun CoinListItem(
@@ -47,7 +45,7 @@ fun CoinListItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(12.dp)
@@ -58,8 +56,8 @@ fun CoinListItem(
                 fontWeight = FontWeight.Black,
                 fontSize = 12.sp,
             )
-            Image(
-                imageVector = ImageVector.vectorResource(coinUi.iconRes),
+            AsyncImage(
+                model = coinUi.logoUrl,
                 contentDescription = "${coinUi.name} logo",
                 modifier = Modifier.size(48.dp)
             )
@@ -75,20 +73,20 @@ fun CoinListItem(
                 Text(
                     text = "${coinUi.marketCapShorted.formatted} Billions",
                     color = MaterialTheme.colorScheme.outline,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.weight(1f)
-            ) {
+            )
+            {
                 Text(
                     text = coinUi.currentPrice.formatted,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Black,
-                    fontSize = 14.sp,
+                    fontSize = 12.sp,
                 )
                 Text(
                     text = "${coinUi.priceChange24h.formatted} (${coinUi.priceChangePercentage24h.formatted}%)",
@@ -98,7 +96,7 @@ fun CoinListItem(
                         MaterialTheme.colorScheme.error
                     },
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                 )
             }
         }
@@ -117,12 +115,14 @@ private fun CoinListItemPreview() {
 }
 
 internal val previewCoin: CoinUi = Coin(
-    id = "bitcoin",
+    id = 1,
     rank = "1",
     symbol = "BTC",
     name = "Bitcoin",
     currentPrice = 57435.28628593438,
     marketCap = 100000000000.0,
     priceChange24h = 10000.0,
-    priceChangePercentage24h = 10.0
+    priceChangePercentage24h = 10.0,
+    logoUrl = "",
+    lastUpdate = 0L
 ).toCoinUi()

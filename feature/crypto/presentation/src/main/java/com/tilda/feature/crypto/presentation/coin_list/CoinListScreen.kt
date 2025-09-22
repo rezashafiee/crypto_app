@@ -89,7 +89,7 @@ private fun CoinListScreenPreview() {
             uiState = CoinListUiState(
                 pagedCoins = flowOf(
                     PagingData.from(
-                        (1..10).map { previewCoin.copy(id = it.toString()) }
+                        (1..10).map { previewCoin.copy(id = it) }
                     )
                 )
             )

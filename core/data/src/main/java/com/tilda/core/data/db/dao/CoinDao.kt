@@ -22,4 +22,10 @@ interface CoinDao {
 
     @Query("DELETE FROM coins")
     suspend fun removeAllCoins()
+
+    @Query("SELECT lastUpdate FROM coins WHERE databaseId=1")
+    suspend fun getLastUpdated(): Long
+
+    @Query("SELECT COUNT(*) FROM coins")
+    suspend fun countItems(): Int
 }

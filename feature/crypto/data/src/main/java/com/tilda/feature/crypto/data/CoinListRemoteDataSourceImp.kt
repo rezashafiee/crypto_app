@@ -15,17 +15,20 @@ class CoinListRemoteDataSourceImp(
     private val httpClient: HttpClient
 ) : CoinListRemoteDataSource {
     override suspend fun getCoins(
-        limit: Int,
-        offset: Int
+        pageSize: Int,
+        page: Int,
+        sortBy: String,
+        sortDirection: String
     ): Result<List<Coin>, NetworkError> {
         return safeCall<CoinListResponse> {
-            httpClient.get(urlString = constructUrl("/assets")) {
-                url.parameters.append("apiKey", BuildConfig.API_KEY)
-                url.parameters.append("limit", limit.toString())
-                url.parameters.append("offset", offset.toString())
+            httpClient.get(urlString = constructUrl("/asset/v1/top/list")) {
+                url.parameters.append("page_size", pageSize.toString())
+                url.parameters.append("page", page.toString())
+                url.parameters.append("sort_by", sortBy)
+                url.parameters.append("sort_direction", sortDirection)
             }
         }.map { response ->
-            response.data.map { it.toCoin() }
+            response.data.list.map { it.toCoin() }
         }
     }
 

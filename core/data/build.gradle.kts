@@ -27,14 +27,14 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://rest.coincap.io/v3/\""
+                "\"https://data-api.coindesk.com/\""
             )
         }
         debug {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://rest.coincap.io/v3/\""
+                "\"https://data-api.coindesk.com/\""
             )
         }
     }
