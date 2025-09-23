@@ -11,6 +11,7 @@ import com.tilda.feature.crypto.data.CoinListRepositoryImp
 import com.tilda.feature.crypto.data.CoinsRemoteMediator
 import com.tilda.feature.crypto.domain.CoinListRemoteDataSource
 import com.tilda.feature.crypto.domain.CoinListRepository
+import com.tilda.feature.crypto.domain.use_case.GetPagedCoinsUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -20,6 +21,7 @@ val cryptoDataModule = module {
     singleOf(::CoinListRemoteDataSourceImp) { bind<CoinListRemoteDataSource>() }
     singleOf(::CoinListRepositoryImp) { bind<CoinListRepository>() }
     singleOf(::CoinsRemoteMediator) { bind<RemoteMediator<Int, CoinEntity>>() }
+    singleOf(::GetPagedCoinsUseCase)
     single { PagingConfig(pageSize = 50, initialLoadSize = 50) }
     factory {
         Pager(
