@@ -21,7 +21,7 @@ val cryptoDataModule = module {
     singleOf(::CoinListRepositoryImp) { bind<CoinListRepository>() }
     singleOf(::CoinsRemoteMediator) { bind<RemoteMediator<Int, CoinEntity>>() }
     single { PagingConfig(pageSize = 50, initialLoadSize = 50) }
-    single {
+    factory {
         Pager(
             config = get(),
             remoteMediator = get<RemoteMediator<Int, CoinEntity>>(),

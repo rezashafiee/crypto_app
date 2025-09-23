@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.tilda.feature.crypto.domain.CoinListRepository
+import com.tilda.feature.crypto.domain.use_case.GetPagedCoinsUseCase
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CoinListViewModel(
-    coinListRepository: CoinListRepository
+    getPagedCoinsUseCase: GetPagedCoinsUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CoinListUiState())
@@ -24,7 +24,7 @@ class CoinListViewModel(
     init {
         val pagedCoins =
             try {
-                coinListRepository.getPagedDomainCoins()
+                getPagedCoinsUseCase()
                     .map { pagingData -> pagingData.map { domainCoin -> domainCoin.toCoinUi() } }
                     .cachedIn(viewModelScope)
             } catch (e: Exception) {
