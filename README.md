@@ -17,7 +17,6 @@ The core idea is that the **Domain layer is the center of the architecture**, an
 
 +---------------------+      +---------------------+      +---------------------+
 |  Presentation Layer |----->|    Domain Layer     |<-----|     Data Layer      |
-| (Compose UI, VMs)   |      | (Use Cases, Models) |      | (Repos, API, DB)    |
 +---------------------+      +---------------------+      +---------------------+
 
 ```
@@ -25,14 +24,12 @@ The core idea is that the **Domain layer is the center of the architecture**, an
 *   **Domain Layer:** Contains the business logic of the application, including use cases, domain models, and repository interfaces. It is independent of the Android framework and any other layer.
 *   **Presentation Layer:** Handles the UI and user interaction, using an **MVVM (Model-View-ViewModel)** pattern. It interacts with the Domain layer through use cases.
 
-The project is also structured using **multi-module approach**, with a dedicated `app` module and feature-specific modules (e.g., `feature/crypto`) to promote separation of concerns, scalability, and faster build times.
-
 ## Tech Stack & Libraries
 
 *   **Kotlin:** Primary programming language.
 *   **Jetpack Compose:** For building the UI.
 *   **Coroutines & Flow:** For asynchronous programming.
-*   **Ktor Client:** For making network requests to fetch cryptocurrency data.
+*   **Ktor Client:** For making network requests.
 *   **Room:** For local data persistence (caching).
 *   **Paging 3:** For efficiently loading and displaying large lists of data.
 *   **Koin:** For dependency injection.
