@@ -1,13 +1,14 @@
-package com.tilda.feature.crypto.data
+package com.tilda.feature.crypto.data.remote
 
 import com.tilda.core.data.network.constructUrl
 import com.tilda.core.data.network.safeCall
 import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.domain.util.Result
 import com.tilda.core.domain.util.map
-import com.tilda.feature.crypto.data.mappers.toCoin
-import com.tilda.feature.crypto.domain.Coin
-import com.tilda.feature.crypto.domain.CoinListRemoteDataSource
+import com.tilda.feature.crypto.data.dto.CoinListResponse
+import com.tilda.feature.crypto.data.datasource.CoinListRemoteDataSource
+import com.tilda.feature.crypto.data.mapper.toCoin
+import com.tilda.feature.crypto.domain.model.Coin
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 

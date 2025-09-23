@@ -1,4 +1,4 @@
-package com.tilda.feature.crypto.domain
+package com.tilda.feature.crypto.domain.model
 
 data class Coin(
     val id: Int,

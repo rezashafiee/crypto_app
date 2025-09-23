@@ -2,7 +2,7 @@ package com.tilda.feature.crypto.presentation.models
 
 import android.icu.text.NumberFormat
 import androidx.compose.runtime.Immutable
-import com.tilda.feature.crypto.domain.Coin
+import com.tilda.feature.crypto.domain.model.Coin
 import java.util.Locale
 
 @Immutable

@@ -1,8 +1,8 @@
-package com.tilda.feature.crypto.data.mappers
+package com.tilda.feature.crypto.data.mapper
 
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.feature.crypto.data.dto.CoinDto
-import com.tilda.feature.crypto.domain.Coin
+import com.tilda.feature.crypto.domain.model.Coin
 
 fun CoinDto.toCoin() = Coin(
     id = id,

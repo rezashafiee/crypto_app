@@ -1,26 +1,22 @@
-package com.tilda.feature.crypto.data
+package com.tilda.feature.crypto.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.paging.RemoteMediator.MediatorResult.Error
-import androidx.paging.RemoteMediator.MediatorResult.Success
-import androidx.room.withTransaction
-import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.Result
-import com.tilda.feature.crypto.data.mappers.toCoinEntity
-import com.tilda.feature.crypto.domain.CoinListRemoteDataSource
+import com.tilda.feature.crypto.data.datasource.CoinListLocalDataSource
+import com.tilda.feature.crypto.data.datasource.CoinListRemoteDataSource
+import com.tilda.feature.crypto.data.mapper.toCoinEntity
 import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class CoinsRemoteMediator(
     private val remoteDataSource: CoinListRemoteDataSource,
-    private val coinDatabase: CoinDatabase
+    private val localDataSource: CoinListLocalDataSource
 ) : RemoteMediator<Int, CoinEntity>() {
 
-    private val coinDao = coinDatabase.coinDao()
     private val sortBy = "TOTAL_MKT_CAP_USD"
     private val sortDirection = "DESC"
 
@@ -34,9 +30,9 @@ class CoinsRemoteMediator(
         return try {
             val pageNumber = when (loadType) {
                 LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return Success(endOfPaginationReached = true)
+                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
-                    val totalItems = coinDao.countItems()
+                    val totalItems = localDataSource.getItemsCount()
                     val nextPage = totalItems / pageSize + 1
                     nextPage
                 }
@@ -52,25 +48,24 @@ class CoinsRemoteMediator(
                 is Result.Success -> {
                     val coins = apiResult.data
                     val endOfPaginationReached = coins.isEmpty() || coins.size < pageSize
+                    val coinEntities = coins.map { it.toCoinEntity() }
 
-                    coinDatabase.withTransaction {
-                        if (loadType == LoadType.REFRESH) {
-                            coinDao.removeAllCoins()
-                        }
-                        val coinEntities = coins.map { it.toCoinEntity() }
-                        coinDao.addCoins(*coinEntities.toTypedArray())
+                    when (loadType) {
+                        LoadType.REFRESH -> localDataSource.replaceAllCoins(coinEntities)
+                        LoadType.APPEND -> localDataSource.addCoins(coinEntities)
+                        else -> Unit
                     }
-                    Success(endOfPaginationReached = endOfPaginationReached)
+                    MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
                 }
 
                 is Result.Error -> {
                     val error = apiResult.error
-                    Error(error)
+                    MediatorResult.Error(error)
                 }
             }
 
         } catch (e: Exception) {
-            Error(e)
+            MediatorResult.Error(e)
         }
     }
 
@@ -82,7 +77,8 @@ class CoinsRemoteMediator(
         val currentTime = System.currentTimeMillis()
         val lastUpdated = TimeUnit.MILLISECONDS
             .convert(
-                coinDao.getLastUpdated(), TimeUnit.SECONDS
+                localDataSource.getLastUpdated(),
+                TimeUnit.SECONDS
             )
         val passedTime = currentTime - lastUpdated
 

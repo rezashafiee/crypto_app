@@ -1,6 +1,5 @@
-package com.tilda.feature.crypto.data
+package com.tilda.feature.crypto.data.dto
 
-import com.tilda.feature.crypto.data.dto.CoinDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

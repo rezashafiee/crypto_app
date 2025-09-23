@@ -1,8 +1,8 @@
-package com.tilda.feature.crypto.domain.use_case
+package com.tilda.feature.crypto.domain.interactor
 
 import androidx.paging.PagingData
-import com.tilda.feature.crypto.domain.Coin
-import com.tilda.feature.crypto.domain.CoinListRepository
+import com.tilda.feature.crypto.domain.model.Coin
+import com.tilda.feature.crypto.domain.repository.CoinListRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetPagedCoinsUseCase(

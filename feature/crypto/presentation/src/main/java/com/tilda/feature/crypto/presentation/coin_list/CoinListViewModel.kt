@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.tilda.feature.crypto.domain.use_case.GetPagedCoinsUseCase
+import com.tilda.feature.crypto.domain.interactor.GetPagedCoinsUseCase
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.flow.MutableStateFlow

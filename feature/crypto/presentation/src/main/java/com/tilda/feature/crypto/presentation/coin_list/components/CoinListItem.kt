@@ -25,7 +25,7 @@ import com.tilda.core.presentation.components.CoinTitle
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.theme.greenDark
 import com.tilda.core.presentation.theme.greenLight
-import com.tilda.feature.crypto.domain.Coin
+import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
 
