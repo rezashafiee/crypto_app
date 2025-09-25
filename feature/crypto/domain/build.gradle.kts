@@ -20,4 +20,9 @@ dependencies {
 
     implementation(libs.coroutines.core)
     implementation(libs.paging.common)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.paging.testing)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.mockk)
 }
