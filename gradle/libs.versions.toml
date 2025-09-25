@@ -21,6 +21,7 @@ jetbrainsKotlinJvm = "2.2.20"
 workManager = "2.10.5"
 lifecycleViewmodelAndroid = "2.9.4"
 ktlint = "13.1.0"
+ksp = "2.2.20-2.0.3"
 
 [libraries]
 
@@ -89,3 +90,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
