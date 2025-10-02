@@ -21,8 +21,8 @@ import com.tilda.core.domain.util.DomainError
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.util.getErrorMessage
 import com.tilda.feature.crypto.presentation.coin_list.components.CoinListItem
-import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
 import com.tilda.feature.crypto.presentation.models.CoinUi
+import com.tilda.feature.crypto.presentation.models.previewCoin
 import kotlinx.coroutines.flow.flowOf
 
 @Composable

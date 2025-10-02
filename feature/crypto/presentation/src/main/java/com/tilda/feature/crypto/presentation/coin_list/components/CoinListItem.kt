@@ -25,9 +25,8 @@ import com.tilda.core.presentation.components.CoinTitle
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.theme.greenDark
 import com.tilda.core.presentation.theme.greenLight
-import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.presentation.models.CoinUi
-import com.tilda.feature.crypto.presentation.models.toCoinUi
+import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
 fun CoinListItem(
@@ -113,16 +112,3 @@ private fun CoinListItemPreview() {
         )
     }
 }
-
-internal val previewCoin: CoinUi = Coin(
-    id = 1,
-    rank = "1",
-    symbol = "BTC",
-    name = "Bitcoin",
-    currentPrice = 57435.28628593438,
-    marketCap = 100000000000.0,
-    priceChange24h = 10000.0,
-    priceChangePercentage24h = 10.0,
-    logoUrl = "",
-    lastUpdate = 0L
-).toCoinUi()

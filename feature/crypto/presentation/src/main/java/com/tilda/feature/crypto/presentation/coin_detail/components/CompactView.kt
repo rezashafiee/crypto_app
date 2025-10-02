@@ -28,8 +28,8 @@ import coil3.compose.AsyncImage
 import com.tilda.core.presentation.components.CoinTitle
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.feature.crypto.presentation.R
-import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
 import com.tilda.feature.crypto.presentation.models.CoinUi
+import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
 fun CompactView(
@@ -102,7 +102,7 @@ fun CompactView(
             )
         }
         Spacer(modifier = Modifier.height(32.dp))
-        ChartComponent()
+        ChartComponent(coinUi, modifier)
         Spacer(modifier = Modifier.height(32.dp))
         StatisticsComponent(
             coinUi.marketCapShorted.formatted,
