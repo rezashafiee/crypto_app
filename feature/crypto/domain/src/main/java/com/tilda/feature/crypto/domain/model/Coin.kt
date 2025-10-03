@@ -10,5 +10,5 @@ data class Coin(
     val priceChange24h: Double,
     val priceChangePercentage24h: Double,
     val logoUrl: String,
-    val lastUpdate: Long
+    val lastUpdate: Long,
 )

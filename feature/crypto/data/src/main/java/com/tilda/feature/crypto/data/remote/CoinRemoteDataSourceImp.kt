@@ -5,16 +5,21 @@ import com.tilda.core.data.network.safeCall
 import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.domain.util.Result
 import com.tilda.core.domain.util.map
+import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
+import com.tilda.feature.crypto.data.dto.CoinHistoryResponse
 import com.tilda.feature.crypto.data.dto.CoinListResponse
-import com.tilda.feature.crypto.data.datasource.CoinListRemoteDataSource
 import com.tilda.feature.crypto.data.mapper.toCoin
+import com.tilda.feature.crypto.data.mapper.toCoinPrice
 import com.tilda.feature.crypto.domain.model.Coin
+import com.tilda.feature.crypto.domain.model.CoinPrice
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import java.time.ZonedDateTime
 
-class CoinListRemoteDataSourceImp(
+class CoinRemoteDataSourceImp(
     private val httpClient: HttpClient
-) : CoinListRemoteDataSource {
+) : CoinRemoteDataSource {
+
     override suspend fun getCoins(
         pageSize: Int,
         page: Int,
@@ -33,4 +38,19 @@ class CoinListRemoteDataSourceImp(
         }
     }
 
+    override suspend fun getCoinHistory(
+        coinSymbol: String,
+        end: ZonedDateTime
+    ): Result<List<CoinPrice>, NetworkError> {
+        return safeCall<CoinHistoryResponse> {
+            httpClient.get(urlString = constructUrl("/index/cc/v1/historical/hours")) {
+                url.parameters.append("market", "cadli")
+                url.parameters.append("instrument", "${coinSymbol.uppercase()}-USD")
+                url.parameters.append("limit", "24")
+                url.parameters.append("to_ts", end.toEpochSecond().toString())
+            }
+        }.map { response ->
+            response.data.map { it.toCoinPrice() }
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.tilda.feature.crypto.presentation.models
 import android.icu.text.NumberFormat
 import androidx.compose.runtime.Immutable
 import com.tilda.feature.crypto.domain.model.Coin
+import com.tilda.feature.crypto.domain.model.CoinPrice
 import java.util.Locale
 
 @Immutable
@@ -17,6 +18,7 @@ data class CoinUi(
     val marketCapShorted: DisplayableNumber,
     val priceChange24h: DisplayableNumber,
     val priceChangePercentage24h: DisplayableNumber,
+    val coinPriceHistory: List<CoinPrice> = emptyList(),
 )
 
 @Immutable
@@ -54,3 +56,16 @@ fun Coin.toCoinUi() = CoinUi(
 fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
     return copy(formatted = "$$formatted")
 }
+
+internal val previewCoin: CoinUi = Coin(
+    id = 1,
+    rank = "1",
+    symbol = "BTC",
+    name = "Bitcoin",
+    currentPrice = 57435.28628593438,
+    marketCap = 100000000000.0,
+    priceChange24h = 10000.0,
+    priceChangePercentage24h = 10.0,
+    logoUrl = "",
+    lastUpdate = 0L
+).toCoinUi()

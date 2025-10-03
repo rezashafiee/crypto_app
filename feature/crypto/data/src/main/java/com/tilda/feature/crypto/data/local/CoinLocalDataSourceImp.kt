@@ -3,11 +3,11 @@ package com.tilda.feature.crypto.data.local
 import androidx.room.withTransaction
 import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.model.CoinEntity
-import com.tilda.feature.crypto.data.datasource.CoinListLocalDataSource
+import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 
-class CoinListLocalDataSourceImp(
+class CoinLocalDataSourceImp(
     private val coinDatabase: CoinDatabase
-) : CoinListLocalDataSource {
+) : CoinLocalDataSource {
 
     private val coinDao = coinDatabase.coinDao()
 

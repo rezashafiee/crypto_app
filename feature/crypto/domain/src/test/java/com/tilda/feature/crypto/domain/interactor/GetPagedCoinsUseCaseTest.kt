@@ -3,7 +3,7 @@ package com.tilda.feature.crypto.domain.interactor
 import androidx.paging.PagingData
 import androidx.paging.testing.asSnapshot
 import com.tilda.feature.crypto.domain.model.Coin
-import com.tilda.feature.crypto.domain.repository.CoinListRepository
+import com.tilda.feature.crypto.domain.repository.CoinRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -15,7 +15,7 @@ import org.junit.Test
 @Suppress("UnusedFlow")
 class GetPagedCoinsUseCaseTest {
 
-    private val repository: CoinListRepository = mockk()
+    private val repository: CoinRepository = mockk()
     private val useCase = GetPagedCoinsUseCase(repository)
 
     @Test
@@ -34,7 +34,7 @@ class GetPagedCoinsUseCaseTest {
             priceChange24h = 1.10000
         )
         val pagingDataFlow = flowOf(PagingData.from(listOf(fakeCoin)))
-        every { repository.getPagedDomainCoins() } returns pagingDataFlow
+        every { repository.getPagedCoins() } returns pagingDataFlow
 
         // When
         val result = useCase.invoke()
@@ -44,7 +44,7 @@ class GetPagedCoinsUseCaseTest {
         assert(result.asSnapshot().first() == fakeCoin)
 
         verify(exactly = 1) {
-            repository.getPagedDomainCoins()
+            repository.getPagedCoins()
         }
         confirmVerified(repository)
     }

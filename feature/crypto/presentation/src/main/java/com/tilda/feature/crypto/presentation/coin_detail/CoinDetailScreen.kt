@@ -13,8 +13,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.tilda.feature.crypto.presentation.coin_detail.components.CompactView
 import com.tilda.feature.crypto.presentation.coin_list.CoinListUiState
-import com.tilda.feature.crypto.presentation.coin_list.components.previewCoin
-import com.tilda.core.presentation.components.LoadingView
+import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
 fun CoinDetailScreen(

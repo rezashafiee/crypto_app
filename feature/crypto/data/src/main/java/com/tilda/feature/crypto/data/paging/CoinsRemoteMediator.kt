@@ -6,15 +6,15 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.Result
-import com.tilda.feature.crypto.data.datasource.CoinListLocalDataSource
-import com.tilda.feature.crypto.data.datasource.CoinListRemoteDataSource
+import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
+import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.data.mapper.toCoinEntity
 import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class CoinsRemoteMediator(
-    private val remoteDataSource: CoinListRemoteDataSource,
-    private val localDataSource: CoinListLocalDataSource
+    private val remoteDataSource: CoinRemoteDataSource,
+    private val localDataSource: CoinLocalDataSource
 ) : RemoteMediator<Int, CoinEntity>() {
 
     private val sortBy = "TOTAL_MKT_CAP_USD"
