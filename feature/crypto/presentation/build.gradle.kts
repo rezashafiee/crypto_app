@@ -62,6 +62,8 @@ dependencies {
 
     implementation(libs.paging.compose)
 
+    implementation(libs.vico.compose.m3)
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)

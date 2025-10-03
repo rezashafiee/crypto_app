@@ -8,7 +8,6 @@ import com.tilda.core.domain.util.onError
 import com.tilda.core.domain.util.onSuccess
 import com.tilda.feature.crypto.domain.interactor.GetCoinHistoryUseCase
 import com.tilda.feature.crypto.domain.interactor.GetPagedCoinsUseCase
-import com.tilda.feature.crypto.presentation.coin_detail.DataPoint
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.channels.Channel
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 class CoinListViewModel(
     getPagedCoinsUseCase: GetPagedCoinsUseCase,
@@ -63,22 +61,10 @@ class CoinListViewModel(
                 end = ZonedDateTime.now()
             )
                 .onSuccess { history ->
-                    val dataPoints = history
-                        .sortedBy { it.dateTime }
-                        .map {
-                            DataPoint(
-                                x = it.dateTime.hour.toFloat(),
-                                y = it.priceUsd.toFloat(),
-                                xLabel = DateTimeFormatter
-                                    .ofPattern("ha\nM/d")
-                                    .format(it.dateTime)
-                            )
-                        }
-
                     _state.update {
                         it.copy(
                             selectedCoin = it.selectedCoin?.copy(
-                                coinPriceHistory = dataPoints
+                                coinPriceHistory = history
                             )
                         )
                     }

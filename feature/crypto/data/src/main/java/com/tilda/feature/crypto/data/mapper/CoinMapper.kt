@@ -50,9 +50,13 @@ fun Coin.toCoinEntity() = CoinEntity(
 
 fun CoinPriceDto.toCoinPrice(): CoinPrice {
     return CoinPrice(
-        priceUsd = priceUsd,
+        openingPrice = openingPrice,
+        closingPrice = closingPrice,
+        highestPrice = highestPrice,
+        lowestPrice = lowestPrice,
+        volume = volume,
         dateTime = Instant
-            .ofEpochMilli(time)
+            .ofEpochSecond(timestamp)
             .atZone(ZoneId.of("UTC"))
     )
 }

@@ -17,8 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tilda.feature.crypto.presentation.R
 import com.tilda.core.presentation.theme.CryptoTheme
+import com.tilda.feature.crypto.presentation.R
 
 @Composable
 fun StatisticsComponent(
@@ -28,7 +28,6 @@ fun StatisticsComponent(
     modifier: Modifier = Modifier,
     lowestPrice: String = "",
     highestPrice: String = "",
-    allTimeHigh: String = ""
 ) {
     Column(
         modifier = modifier
@@ -63,8 +62,6 @@ fun StatisticsComponent(
                 LabelComponent(stringResource(R.string.popularity))
                 PriceComponent(popularity)
                 Spacer(modifier = Modifier.height(16.dp))
-                LabelComponent(stringResource(R.string.all_time_high))
-                PriceComponent(allTimeHigh)
             }
         }
 
@@ -82,7 +79,6 @@ private fun StatisticsComponentPreview() {
             popularity = "1",
             lowestPrice = "1,000,000,000",
             highestPrice = "1,000,000,000",
-            allTimeHigh = "1,000,000,000",
             modifier = Modifier.background(MaterialTheme.colorScheme.surfaceContainer)
         )
     }

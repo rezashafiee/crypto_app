@@ -4,11 +4,7 @@ import android.icu.text.NumberFormat
 import androidx.compose.runtime.Immutable
 import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.domain.model.CoinPrice
-import com.tilda.feature.crypto.presentation.coin_detail.DataPoint
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Locale
-import kotlin.random.Random
 
 @Immutable
 data class CoinUi(
@@ -22,7 +18,7 @@ data class CoinUi(
     val marketCapShorted: DisplayableNumber,
     val priceChange24h: DisplayableNumber,
     val priceChangePercentage24h: DisplayableNumber,
-    val coinPriceHistory: List<DataPoint> = emptyList(),
+    val coinPriceHistory: List<CoinPrice> = emptyList(),
 )
 
 @Immutable
@@ -61,25 +57,6 @@ fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
     return copy(formatted = "$$formatted")
 }
 
-
-val coinHistoryRandomized =
-    (1..20).map {
-        CoinPrice(
-            priceUsd = Random.nextFloat() * 1000.0,
-            dateTime = ZonedDateTime.now().plusHours(it.toLong())
-        )
-    }
-
-val dataPoints = coinHistoryRandomized.map {
-    DataPoint(
-        x = it.dateTime.hour.toFloat(),
-        y = it.priceUsd.toFloat(),
-        xLabel = DateTimeFormatter
-            .ofPattern("ha\nM/d")
-            .format(it.dateTime)
-    )
-}
-
 internal val previewCoin: CoinUi = Coin(
     id = 1,
     rank = "1",
@@ -91,4 +68,4 @@ internal val previewCoin: CoinUi = Coin(
     priceChangePercentage24h = 10.0,
     logoUrl = "",
     lastUpdate = 0L
-).toCoinUi().copy(coinPriceHistory = dataPoints)
+).toCoinUi()
