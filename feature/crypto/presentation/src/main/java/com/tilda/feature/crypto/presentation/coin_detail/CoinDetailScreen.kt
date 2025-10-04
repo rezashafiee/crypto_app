@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.tilda.core.presentation.util.rememberWindowSizeInfo
 import com.tilda.feature.crypto.presentation.coin_detail.components.CompactView
 import com.tilda.feature.crypto.presentation.coin_list.CoinListUiState
 import com.tilda.feature.crypto.presentation.models.previewCoin
@@ -24,18 +25,21 @@ fun CoinDetailScreen(
     if (state.selectedCoin != null) {
         val coin = state.selectedCoin
         BoxWithConstraints {
-            if (this.maxWidth < 600.dp) {
-                CompactView(coin)
+            val windowSizeInfo = rememberWindowSizeInfo()
+            val isCompact = this.maxWidth < 600.dp
+
+            if (isCompact) {
+                CompactView(coin, windowSizeInfo.isFoldable)
             } else {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize()
                         .background(Color.Black)
                 ) {
                     Text(
                         text = "TabletView Under construction",
-                        modifier = Modifier.align(Alignment.Center),
+                        modifier = modifier.align(Alignment.Center),
                         color = Color.White
                     )
                 }

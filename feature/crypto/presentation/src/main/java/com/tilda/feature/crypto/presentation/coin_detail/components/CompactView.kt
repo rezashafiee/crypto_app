@@ -36,6 +36,7 @@ import com.tilda.feature.crypto.presentation.models.toDisplayableNumber
 @Composable
 fun CompactView(
     coinUi: CoinUi,
+    isFoldable: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -54,12 +55,16 @@ fun CompactView(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_back),
-                contentDescription = stringResource(R.string.content_description_back_button),
-                modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.outline
-            )
+            if (isFoldable.not()) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_back),
+                    contentDescription = stringResource(R.string.content_description_back_button),
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.outline
+                )
+            } else {
+                Spacer(modifier = Modifier.size(24.dp))
+            }
             CoinTitle(
                 coinUi.name,
                 coinUi.symbol
@@ -129,7 +134,8 @@ fun CompactView(
 private fun CompactViewPreview() {
     CryptoTheme {
         CompactView(
-            previewCoin
+            previewCoin,
+            false
         )
     }
 }

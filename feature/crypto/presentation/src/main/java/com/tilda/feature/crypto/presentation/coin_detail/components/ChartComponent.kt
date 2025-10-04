@@ -1,7 +1,6 @@
 package com.tilda.feature.crypto.presentation.coin_detail.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,8 +25,7 @@ fun ChartComponent(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        modifier = modifier.size(400.dp, 300.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         AnimatedVisibility(
             visible = coin.coinPriceHistory.isNotEmpty()
