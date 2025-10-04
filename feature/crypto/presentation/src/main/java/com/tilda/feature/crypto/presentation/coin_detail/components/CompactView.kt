@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,14 +39,17 @@ import com.tilda.feature.crypto.presentation.models.toDisplayableNumber
 fun CompactView(
     coinUi: CoinUi,
     isFoldable: Boolean,
+    isLandscape: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = modifier
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer
             )
             .fillMaxSize()
+            .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
         Row(
@@ -55,7 +60,7 @@ fun CompactView(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (isFoldable.not()) {
+            if (!isFoldable && !isLandscape) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_back),
                     contentDescription = stringResource(R.string.content_description_back_button),
@@ -134,8 +139,9 @@ fun CompactView(
 private fun CompactViewPreview() {
     CryptoTheme {
         CompactView(
-            previewCoin,
-            false
+            coinUi = previewCoin,
+            isFoldable = false,
+            isLandscape = false
         )
     }
 }

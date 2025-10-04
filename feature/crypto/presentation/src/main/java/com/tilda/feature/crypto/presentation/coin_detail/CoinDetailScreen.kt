@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.tilda.core.presentation.util.rememberWindowSizeInfo
+import com.tilda.core.presentation.util.LocalDeviceWindowInfo
 import com.tilda.feature.crypto.presentation.coin_detail.components.CompactView
 import com.tilda.feature.crypto.presentation.coin_list.CoinListUiState
 import com.tilda.feature.crypto.presentation.models.previewCoin
@@ -25,11 +25,15 @@ fun CoinDetailScreen(
     if (state.selectedCoin != null) {
         val coin = state.selectedCoin
         BoxWithConstraints {
-            val windowSizeInfo = rememberWindowSizeInfo()
+            val deviceWindowInfo = LocalDeviceWindowInfo.current
             val isCompact = this.maxWidth < 600.dp
 
             if (isCompact) {
-                CompactView(coin, windowSizeInfo.isFoldable)
+                CompactView(
+                    coin,
+                    deviceWindowInfo.foldableInfo.isFoldable,
+                    deviceWindowInfo.orientationInfo.isLandscape
+                )
             } else {
                 Box(
                     contentAlignment = Alignment.Center,
