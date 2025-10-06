@@ -92,6 +92,8 @@ dependencies {
     implementation(libs.koin.androidx.workmanager)
 
     testImplementation(libs.junit)
+    testImplementation(libs.truth)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.truth)
 }
