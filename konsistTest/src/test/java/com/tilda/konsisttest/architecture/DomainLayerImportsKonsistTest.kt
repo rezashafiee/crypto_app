@@ -10,7 +10,8 @@ class DomainLayerImportsKonsistTest {
 
     val allowedImports = listOf(
         "androidx.paging.PagingData",
-        "kotlinx.coroutines.flow"
+        "kotlinx.coroutines.flow",
+        "java.time"
     )
 
     @Test
