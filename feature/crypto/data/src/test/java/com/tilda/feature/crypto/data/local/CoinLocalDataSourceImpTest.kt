@@ -83,7 +83,7 @@ class CoinLocalDataSourceImpTest {
     fun replaceAllCoins_runsInTransactionAndReplacesData() = runTest {
         // given
         // Mock the RoomDatabase.withTransaction extension so it invokes the block immediately
-        mockkStatic(RoomDatabase::class)
+        mockkStatic("androidx.room.RoomDatabaseKt")
         coEvery { (coinDatabase as RoomDatabase).withTransaction(any<suspend () -> Any>()) } coAnswers {
             val block = secondArg<suspend () -> Any>()
             block.invoke()
