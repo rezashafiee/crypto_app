@@ -2,10 +2,10 @@ package com.tilda.feature.crypto.data.local
 
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
+import com.google.common.truth.Truth.assertThat
 import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.dao.CoinDao
 import com.tilda.core.data.db.model.CoinEntity
-import io.mockk.Called
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -41,30 +41,39 @@ class CoinLocalDataSourceImpTest {
 
     @Test
     fun getItemsCount_delegatesToDao() = runTest {
+        // given
         coEvery { coinDao.countItems() } returns 42
 
+        // when
         val result = dataSource.getItemsCount()
 
+        // then
         coVerify(exactly = 1) { coinDao.countItems() }
-        assert(result == 42)
+        assertThat(result).isEqualTo(42)
     }
 
     @Test
     fun getLastUpdated_delegatesToDao() = runTest {
+        // given
         coEvery { coinDao.getLastUpdated() } returns 123456789L
 
+        // when
         val result = dataSource.getLastUpdated()
 
+        // then
         coVerify(exactly = 1) { coinDao.getLastUpdated() }
-        assert(result == 123456789L)
+        assertThat(result).isEqualTo(123456789L)
     }
 
     @Test
     fun addCoins_callsDaoWithVararg() = runTest {
+        // given
         val items = sampleItems()
 
+        // when
         dataSource.addCoins(items)
 
+        // then
         coVerify(exactly = 1) { coinDao.addCoins(*items.toTypedArray()) }
         // Ensure no unintended calls
         coVerify(exactly = 0) { coinDao.removeAllCoins() }
@@ -72,17 +81,19 @@ class CoinLocalDataSourceImpTest {
 
     @Test
     fun replaceAllCoins_runsInTransactionAndReplacesData() = runTest {
-        // Mock the RoomDatabaseKt.withTransaction extension so it invokes the block immediately
-        mockkStatic("androidx.room.RoomDatabaseKt")
+        // given
+        // Mock the RoomDatabase.withTransaction extension so it invokes the block immediately
+        mockkStatic(RoomDatabase::class)
         coEvery { (coinDatabase as RoomDatabase).withTransaction(any<suspend () -> Any>()) } coAnswers {
             val block = secondArg<suspend () -> Any>()
             block.invoke()
         }
-
         val items = sampleItems()
 
+        // when
         dataSource.replaceAllCoins(items)
 
+        // then
         coVerify(exactly = 1) { coinDao.removeAllCoins() }
         coVerify(exactly = 1) { coinDao.addCoins(*items.toTypedArray()) }
     }

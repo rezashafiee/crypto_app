@@ -24,6 +24,7 @@ lifecycleViewmodelAndroid = "2.9.4"
 ktlint = "13.1.0"
 ksp = "2.2.20-2.0.3"
 vico = "2.2.0"
+truth = "1.4.5"
 
 [libraries]
 
@@ -84,6 +85,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 

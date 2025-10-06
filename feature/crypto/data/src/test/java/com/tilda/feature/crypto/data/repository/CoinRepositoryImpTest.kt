@@ -1,7 +1,7 @@
 package com.tilda.feature.crypto.data.repository
 
 import androidx.paging.Pager
-import com.tilda.core.domain.util.Result
+import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.Result.Success
 import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.domain.model.CoinPrice
@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 class CoinRepositoryImpTest {
 
     @MockK(relaxed = true)
-    lateinit var pager: Pager<Int, com.tilda.core.data.db.model.CoinEntity>
+    lateinit var pager: Pager<Int, CoinEntity>
 
     @MockK(relaxed = true)
     lateinit var remote: CoinRemoteDataSource
@@ -32,15 +32,18 @@ class CoinRepositoryImpTest {
 
     @Test
     fun getCoinsHistory_delegatesToRemoteDataSource() = runTest {
+        // Given
         val end = ZonedDateTime.now()
         val expected = listOf(
             CoinPrice(1.0, 2.0, 0.5, 1.5, end, 100.0)
         )
         coEvery { remote.getCoinHistory("btc", end) } returns Success(expected)
 
+        // When
         val result = repo.getCoinsHistory("btc", end)
 
+        // Then
         coVerify(exactly = 1) { remote.getCoinHistory("btc", end) }
-        assert(result is Result.Success && result.data == expected)
+        assert(result is Success && result.data == expected)
     }
 }
