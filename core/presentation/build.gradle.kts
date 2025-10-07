@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,10 +10,10 @@ plugins {
 
 android {
     namespace = "com.tilda.core.presentation"
-    compileSdk = 36
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 28
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -38,7 +40,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.fromTarget("11")
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -46,25 +48,25 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    implementation(libs.androidx.core.ktx)
+    implementation(Dependencies.AndroidX.coreKtx)
 
-    implementation(libs.activity.compose)
-    api(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.text.google.fonts)
-    implementation(libs.compose.material3)
+    implementation(Dependencies.AndroidX.activityCompose)
+    api(platform(Dependencies.Compose.bom))
+    implementation(Dependencies.Compose.ui)
+    implementation(Dependencies.Compose.uiGraphics)
+    implementation(Dependencies.Compose.uiToolingPreview)
+    implementation(Dependencies.Compose.uiTextGoogleFonts)
+    implementation(Dependencies.Compose.material3)
 
-    implementation(libs.androidx.window)
+    implementation(Dependencies.AndroidX.window)
 
-    androidTestApi(platform(libs.compose.bom))
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.truth)
+    androidTestApi(platform(Dependencies.Compose.bom))
+    androidTestImplementation(Dependencies.Compose.uiTestJunit4)
+    debugImplementation(Dependencies.Compose.uiTooling)
+    debugImplementation(Dependencies.Compose.uiTestManifest)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.truth)
+    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
+    androidTestImplementation(Dependencies.AndroidX.espressoCore)
+    androidTestImplementation(Dependencies.Test.truth)
 }

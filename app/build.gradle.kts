@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,15 +9,15 @@ plugins {
 }
 
 android {
-    namespace = "com.tilda.crypto"
-    compileSdk = 36
+    namespace = Configs.applicationId
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        applicationId = "com.tilda.crypto"
-        minSdk = 28
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Configs.applicationId
+        minSdk = Configs.minSdk
+        targetSdk = Configs.targetSdk
+        versionCode = Configs.versionCode
+        versionName = Configs.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,7 +61,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.fromTarget("11")
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -71,29 +73,29 @@ dependencies {
     implementation(project(":feature:crypto:presentation"))
     implementation(project(":feature:crypto:data"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
+    implementation(Dependencies.AndroidX.coreKtx)
+    implementation(Dependencies.AndroidX.lifecycleRuntimeKtx)
+    implementation(Dependencies.AndroidX.activityCompose)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.text.google.fonts)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material3.adaptive)
-    implementation(libs.compose.material3.adaptive.layout)
-    implementation(libs.compose.material3.adaptive.navigation)
+    implementation(platform(Dependencies.Compose.bom))
+    implementation(Dependencies.Compose.ui)
+    implementation(Dependencies.Compose.uiGraphics)
+    implementation(Dependencies.Compose.uiToolingPreview)
+    implementation(Dependencies.Compose.uiTextGoogleFonts)
+    implementation(Dependencies.Compose.material3)
+    implementation(Dependencies.Compose.material3Adaptive)
+    implementation(Dependencies.Compose.material3AdaptiveLayout)
+    implementation(Dependencies.Compose.material3AdaptiveNavigation)
 
-    implementation(libs.paging.compose)
+    implementation(Dependencies.AndroidX.pagingCompose)
 
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.workmanager)
+    implementation(Dependencies.DI.koinAndroid)
+    implementation(Dependencies.DI.koinCompose)
+    implementation(Dependencies.DI.koinWorkManager)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.truth)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.truth)
+    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
+    androidTestImplementation(Dependencies.AndroidX.espressoCore)
+    androidTestImplementation(Dependencies.Test.truth)
 }

@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,10 +10,10 @@ plugins {
 
 android {
     namespace = "com.tilda.core.data"
-    compileSdk = 36
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 28
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -50,7 +52,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.fromTarget("11")
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -58,23 +60,23 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    api(libs.ktor.client.core)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
+    api(Dependencies.Ktor.core)
+    implementation(Dependencies.Ktor.cio)
+    implementation(Dependencies.Ktor.logging)
+    implementation(Dependencies.Ktor.negotiation)
+    implementation(Dependencies.Ktor.json)
 
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
-    implementation(libs.room.paging)
+    implementation(Dependencies.AndroidX.roomRuntime)
+    ksp(Dependencies.AndroidX.roomCompiler)
+    implementation(Dependencies.AndroidX.roomKtx)
+    implementation(Dependencies.AndroidX.roomPaging)
 
-    implementation(libs.koin.android)
+    implementation(Dependencies.DI.koinAndroid)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.room.testing)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.truth)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.truth)
+    testImplementation(Dependencies.AndroidX.roomTesting)
+    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
+    androidTestImplementation(Dependencies.AndroidX.espressoCore)
+    androidTestImplementation(Dependencies.Test.truth)
 }

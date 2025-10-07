@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,10 +9,10 @@ plugins {
 
 android {
     namespace = "com.tilda.konsisttest"
-    compileSdk = 36
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 28
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -33,14 +35,14 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
 dependencies {
 
-    testImplementation(libs.junit)
-    testImplementation(libs.konsist)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.konsist)
     testImplementation(kotlin("test"))
-    testImplementation(libs.lifecycle.viewmodel.android)
+    testImplementation(Dependencies.AndroidX.lifecycleViewModelAndroid)
 }

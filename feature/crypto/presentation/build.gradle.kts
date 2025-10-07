@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,10 +10,10 @@ plugins {
 
 android {
     namespace = "com.tilda.feature.crypto.presentation"
-    compileSdk = 36
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 28
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -38,7 +40,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.fromTarget("11")
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -47,30 +49,30 @@ dependencies {
     implementation(project(":feature:crypto:domain"))
     implementation(project(":core:presentation"))
 
-    implementation(libs.koin.android)
+    implementation(Dependencies.DI.koinAndroid)
 
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.text.google.fonts)
-    implementation(libs.compose.material3)
+    implementation(Dependencies.AndroidX.activityCompose)
+    implementation(platform(Dependencies.Compose.bom))
+    implementation(Dependencies.Compose.ui)
+    implementation(Dependencies.Compose.uiGraphics)
+    implementation(Dependencies.Compose.uiToolingPreview)
+    implementation(Dependencies.Compose.uiTextGoogleFonts)
+    implementation(Dependencies.Compose.material3)
 
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation(Dependencies.Coil3.compose)
+    implementation(Dependencies.Coil3.networkOkHttp)
 
-    implementation(libs.paging.compose)
+    implementation(Dependencies.AndroidX.pagingCompose)
 
-    implementation(libs.vico.compose.m3)
+    implementation(Dependencies.Charts.vicoComposeM3)
 
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.truth)
+    androidTestImplementation(platform(Dependencies.Compose.bom))
+    androidTestImplementation(Dependencies.Compose.uiTestJunit4)
+    debugImplementation(Dependencies.Compose.uiTooling)
+    debugImplementation(Dependencies.Compose.uiTestManifest)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.truth)
+    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
+    androidTestImplementation(Dependencies.AndroidX.espressoCore)
+    androidTestImplementation(Dependencies.Test.truth)
 }

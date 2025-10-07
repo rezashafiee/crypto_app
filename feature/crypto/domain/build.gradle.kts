@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -10,7 +12,7 @@ java {
 }
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -18,11 +20,11 @@ dependencies {
 
     api(project(":core:domain"))
 
-    implementation(libs.coroutines.core)
-    implementation(libs.paging.common)
+    implementation(Dependencies.Kotlin.coroutinesCore)
+    implementation(Dependencies.AndroidX.pagingCommon)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.paging.testing)
-    testImplementation(libs.coroutines.test)
-    testImplementation(libs.mockk)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.AndroidX.pagingTesting)
+    testImplementation(Dependencies.Kotlin.coroutinesTest)
+    testImplementation(Dependencies.Test.mockk)
 }
