@@ -1,3 +1,4 @@
+import com.tilda.build.Configs
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -10,6 +11,6 @@ java {
 }
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }

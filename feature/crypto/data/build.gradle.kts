@@ -1,3 +1,5 @@
+import com.tilda.build.Configs
+import com.tilda.build.Dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
@@ -15,10 +17,10 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.tilda.feature.crypto.data"
-    compileSdk = 36
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 28
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -51,7 +53,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.fromTarget("11")
+        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -60,19 +62,19 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":feature:crypto:domain"))
 
-    implementation(libs.androidx.work.runtime.ktx)
-    implementation(libs.koin.android)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.room.runtime)
+    implementation(Dependencies.AndroidX.workRuntimeKtx)
+    implementation(Dependencies.DI.koinAndroid)
+    implementation(Dependencies.Ktor.json)
+    implementation(Dependencies.AndroidX.roomRuntime)
 
-    implementation(libs.paging.runtime)
+    implementation(Dependencies.AndroidX.pagingRuntime)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.coroutines.test)
-    testImplementation(libs.mockk)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.coroutines.test)
+    testImplementation(Dependencies.Test.junit4)
+    testImplementation(Dependencies.Test.truth)
+    testImplementation(Dependencies.Kotlin.coroutinesTest)
+    testImplementation(Dependencies.Test.mockk)
+    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
+    androidTestImplementation(Dependencies.AndroidX.espressoCore)
+    androidTestImplementation(Dependencies.Test.truth)
+    androidTestImplementation(Dependencies.Kotlin.coroutinesTest)
 }
