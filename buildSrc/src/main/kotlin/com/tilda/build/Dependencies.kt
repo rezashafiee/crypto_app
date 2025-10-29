@@ -85,4 +85,8 @@ object Dependencies {
         const val mockk = "io.mockk:mockk:${Versions.mockk}"
         const val konsist = "com.lemonappdev:konsist:${Versions.konsist}"
     }
+
+    object Performance {
+        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
+    }
 }

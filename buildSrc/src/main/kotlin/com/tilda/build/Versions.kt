@@ -16,6 +16,7 @@ object Versions {
     const val paging = "3.3.6"
     const val coil3 = "3.3.0"
     const val vico = "2.2.0"
+    const val leakCanary = "2.14"
 
     // Testing
     const val truth = "1.4.5"

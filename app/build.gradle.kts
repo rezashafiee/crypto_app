@@ -93,6 +93,8 @@ dependencies {
     implementation(Dependencies.DI.koinCompose)
     implementation(Dependencies.DI.koinWorkManager)
 
+    debugImplementation(Dependencies.Performance.leakCanary)
+
     testImplementation(Dependencies.Test.junit4)
     testImplementation(Dependencies.Test.truth)
     androidTestImplementation(Dependencies.AndroidX.testExtJunit)
