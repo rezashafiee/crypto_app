@@ -66,7 +66,7 @@ Presentation and Data layers depend on it, but the Domain layer does not depend 
 * **Kotlin:** Primary programming language.
 * **Jetpack Compose:** For building the UI.
 * **Coroutines & Flow:** For asynchronous programming.
-* **Ktor Client:** For making network requests.
+* **Retrofit + Moshi:** For API requests and JSON serialization/deserialization.
 * **Room:** For local data persistence (caching).
 * **Paging 3:** For efficiently loading and displaying large lists of data.
 * **Koin:** For dependency injection.
@@ -77,8 +77,8 @@ Presentation and Data layers depend on it, but the Domain layer does not depend 
 * **`app`:** The main application module, responsible for putting together all the features and core
   components.
 * **`core`:** Contains shared code and utilities used across multiple feature modules.
-    * `core/data`: Core data components, potentially including database setup or shared data
-      sources.
+    * `core/data`: Shared networking and data infrastructure (Retrofit/Moshi/OkHttp setup,
+      network error mapping, and reusable request wrappers), plus common data components.
     * `core/domain`: Core domain logic or models.
     * `core/presentation`: Core UI components, themes, or presentation utilities.
 * **`feature/crypto`:** A feature module dedicated to cryptocurrency-related functionalities.
