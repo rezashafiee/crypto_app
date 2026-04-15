@@ -9,6 +9,7 @@ import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.data.local.CoinLocalDataSourceImp
+import com.tilda.feature.crypto.data.remote.CoinApiService
 import com.tilda.feature.crypto.data.paging.CoinsRemoteMediator
 import com.tilda.feature.crypto.data.remote.CoinRemoteDataSourceImp
 import com.tilda.feature.crypto.data.repository.CoinRepositoryImp
@@ -17,9 +18,11 @@ import com.tilda.feature.crypto.domain.repository.CoinRepository
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import retrofit2.Retrofit
 
 @OptIn(ExperimentalPagingApi::class)
 val cryptoDataModule = module {
+    single<CoinApiService> { get<Retrofit>().create(CoinApiService::class.java) }
     singleOf(::CoinRemoteDataSourceImp) { bind<CoinRemoteDataSource>() }
     singleOf(::CoinLocalDataSourceImp) { bind<CoinLocalDataSource>() }
     singleOf(::CoinRepositoryImp) { bind<CoinRepository>() }

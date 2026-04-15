@@ -6,7 +6,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
+    id("com.google.devtools.ksp")
 }
 
 val localProperties = Properties()
@@ -64,8 +64,10 @@ dependencies {
 
     implementation(Dependencies.AndroidX.workRuntimeKtx)
     implementation(Dependencies.DI.koinAndroid)
-    implementation(Dependencies.Ktor.json)
+    implementation(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.moshi)
     implementation(Dependencies.AndroidX.roomRuntime)
+    ksp(Dependencies.Retrofit.moshiCodegen)
 
     implementation(Dependencies.AndroidX.pagingRuntime)
 

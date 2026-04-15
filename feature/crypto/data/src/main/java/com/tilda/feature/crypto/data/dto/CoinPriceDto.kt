@@ -1,20 +1,20 @@
 package com.tilda.feature.crypto.data.dto
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class CoinPriceDto(
-    @SerialName("CLOSE")
+    @field:Json(name = "CLOSE")
     val closingPrice: Double,
-    @SerialName("OPEN")
+    @field:Json(name = "OPEN")
     val openingPrice: Double,
-    @SerialName("HIGH")
+    @field:Json(name = "HIGH")
     val highestPrice: Double,
-    @SerialName("LOW")
+    @field:Json(name = "LOW")
     val lowestPrice: Double,
-    @SerialName("TIMESTAMP")
+    @field:Json(name = "TIMESTAMP")
     val timestamp: Long,
-    @SerialName("VOLUME")
+    @field:Json(name = "VOLUME")
     val volume: Double
 )

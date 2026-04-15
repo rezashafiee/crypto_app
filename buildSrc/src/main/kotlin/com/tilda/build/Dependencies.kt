@@ -62,12 +62,13 @@ object Dependencies {
         const val koinWorkManager = "io.insert-koin:koin-androidx-workmanager:${Versions.koin}"
     }
 
-    object Ktor {
-        const val core = "io.ktor:ktor-client-core:${Versions.ktor}"
-        const val cio = "io.ktor:ktor-client-cio:${Versions.ktor}"
-        const val logging = "io.ktor:ktor-client-logging:${Versions.ktor}"
-        const val negotiation = "io.ktor:ktor-client-content-negotiation:${Versions.ktor}"
-        const val json = "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
+    object Retrofit {
+        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+        const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
+        const val moshiCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+        const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+        const val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
     }
 
     object Coil3 {

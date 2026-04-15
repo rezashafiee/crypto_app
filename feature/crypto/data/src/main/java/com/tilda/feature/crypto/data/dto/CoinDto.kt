@@ -1,36 +1,36 @@
 package com.tilda.feature.crypto.data.dto
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class CoinDto(
-    @SerialName("ID")
+    @field:Json(name = "ID")
     val id: Int,
-    @SerialName("TOPLIST_BASE_RANK")
+    @field:Json(name = "TOPLIST_BASE_RANK")
     val rank: Rank,
-    @SerialName("SYMBOL")
+    @field:Json(name = "SYMBOL")
     val symbol: String,
-    @SerialName("NAME")
+    @field:Json(name = "NAME")
     val name: String,
-    @SerialName("PRICE_USD")
+    @field:Json(name = "PRICE_USD")
     val priceUsd: Double,
-    @SerialName("TOTAL_MKT_CAP_USD")
+    @field:Json(name = "TOTAL_MKT_CAP_USD")
     val marketCapUsd: Double,
-    @SerialName("SPOT_MOVING_24_HOUR_CHANGE_USD")
+    @field:Json(name = "SPOT_MOVING_24_HOUR_CHANGE_USD")
     val change24Hr: Double,
-    @SerialName("SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD")
+    @field:Json(name = "SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD")
     val changePercent24Hr: Double,
-    @SerialName("LOGO_URL")
+    @field:Json(name = "LOGO_URL")
     val logoUrl: String?,
-    @SerialName("ASSET_DESCRIPTION_SNIPPET")
+    @field:Json(name = "ASSET_DESCRIPTION_SNIPPET")
     val description: String?,
-    @SerialName("PRICE_USD_LAST_UPDATE_TS")
+    @field:Json(name = "PRICE_USD_LAST_UPDATE_TS")
     val lastUpdate: Long,
 )
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class Rank(
-    @SerialName("TOTAL_MKT_CAP_USD")
+    @field:Json(name = "TOTAL_MKT_CAP_USD")
     val marketCapRank: Short
 )

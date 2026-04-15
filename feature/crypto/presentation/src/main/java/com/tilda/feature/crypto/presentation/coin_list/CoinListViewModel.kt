@@ -10,10 +10,12 @@ import com.tilda.feature.crypto.domain.interactor.GetCoinHistoryUseCase
 import com.tilda.feature.crypto.domain.interactor.GetPagedCoinsUseCase
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -35,6 +37,7 @@ class CoinListViewModel(
         val pagedCoins =
             try {
                 getPagedCoinsUseCase()
+                    .flowOn(Dispatchers.Default)
                     .map { pagingData -> pagingData.map { domainCoin -> domainCoin.toCoinUi() } }
                     .cachedIn(viewModelScope)
             } catch (e: Exception) {

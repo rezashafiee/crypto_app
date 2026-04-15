@@ -60,11 +60,11 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    api(Dependencies.Ktor.core)
-    implementation(Dependencies.Ktor.cio)
-    implementation(Dependencies.Ktor.logging)
-    implementation(Dependencies.Ktor.negotiation)
-    implementation(Dependencies.Ktor.json)
+    api(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.converterMoshi)
+    implementation(Dependencies.Retrofit.moshi)
+    implementation(Dependencies.Retrofit.okHttp)
+    implementation(Dependencies.Retrofit.okHttpLogging)
 
     implementation(Dependencies.AndroidX.roomRuntime)
     ksp(Dependencies.AndroidX.roomCompiler)

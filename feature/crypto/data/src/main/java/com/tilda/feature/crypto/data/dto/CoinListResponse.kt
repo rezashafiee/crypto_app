@@ -1,17 +1,17 @@
 package com.tilda.feature.crypto.data.dto
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class CoinListResponse(
-    @SerialName("Data")
+    @field:Json(name = "Data")
     val data: Data
 )
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class Data(
-    @SerialName("LIST")
+    @field:Json(name = "LIST")
     val list: List<CoinDto>
 )
 
