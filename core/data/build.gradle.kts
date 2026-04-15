@@ -1,23 +1,10 @@
-import com.tilda.build.Configs
-import com.tilda.build.Dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("com.tilda.android.library")
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.tilda.core.data"
-    compileSdk = Configs.compileSdk
-
-    defaultConfig {
-        minSdk = Configs.minSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 
     buildTypes {
         release {
@@ -40,19 +27,8 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         buildConfig = true
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -60,23 +36,23 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    api(Dependencies.Retrofit.retrofit)
-    implementation(Dependencies.Retrofit.converterMoshi)
-    implementation(Dependencies.Retrofit.moshi)
-    implementation(Dependencies.Retrofit.okHttp)
-    implementation(Dependencies.Retrofit.okHttpLogging)
+    api(libs.retrofit.retrofit)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.moshi.moshi)
+    implementation(libs.okhttp.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 
-    implementation(Dependencies.AndroidX.roomRuntime)
-    ksp(Dependencies.AndroidX.roomCompiler)
-    implementation(Dependencies.AndroidX.roomKtx)
-    implementation(Dependencies.AndroidX.roomPaging)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
 
-    implementation(Dependencies.DI.koinAndroid)
+    implementation(libs.koin.android)
 
-    testImplementation(Dependencies.Test.junit4)
-    testImplementation(Dependencies.Test.truth)
-    testImplementation(Dependencies.AndroidX.roomTesting)
-    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
-    androidTestImplementation(Dependencies.AndroidX.espressoCore)
-    androidTestImplementation(Dependencies.Test.truth)
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.truth)
+    testImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.test.truth)
 }

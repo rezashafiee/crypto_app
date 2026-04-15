@@ -1,23 +1,10 @@
-import com.tilda.build.Configs
-import com.tilda.build.Dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    id("com.tilda.android.library")
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.tilda.core.presentation"
-    compileSdk = Configs.compileSdk
-
-    defaultConfig {
-        minSdk = Configs.minSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 
     buildTypes {
         release {
@@ -28,19 +15,8 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         compose = true
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -48,25 +24,25 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    implementation(Dependencies.AndroidX.coreKtx)
+    implementation(libs.androidx.core.ktx)
 
-    implementation(Dependencies.AndroidX.activityCompose)
-    api(platform(Dependencies.Compose.bom))
-    implementation(Dependencies.Compose.ui)
-    implementation(Dependencies.Compose.uiGraphics)
-    implementation(Dependencies.Compose.uiToolingPreview)
-    implementation(Dependencies.Compose.uiTextGoogleFonts)
-    implementation(Dependencies.Compose.material3)
+    implementation(libs.androidx.activity.compose)
+    api(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui.text.google.fonts)
+    implementation(libs.compose.material3)
 
-    implementation(Dependencies.AndroidX.window)
+    implementation(libs.androidx.window)
 
-    androidTestApi(platform(Dependencies.Compose.bom))
-    androidTestImplementation(Dependencies.Compose.uiTestJunit4)
-    debugImplementation(Dependencies.Compose.uiTooling)
-    debugImplementation(Dependencies.Compose.uiTestManifest)
-    testImplementation(Dependencies.Test.junit4)
-    testImplementation(Dependencies.Test.truth)
-    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
-    androidTestImplementation(Dependencies.AndroidX.espressoCore)
-    androidTestImplementation(Dependencies.Test.truth)
+    androidTestApi(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.truth)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.test.truth)
 }

@@ -1,12 +1,8 @@
-import com.tilda.build.Configs
-import com.tilda.build.Dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("com.tilda.android.library")
+    alias(libs.plugins.ksp)
 }
 
 val localProperties = Properties()
@@ -17,14 +13,7 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.tilda.feature.crypto.data"
-    compileSdk = Configs.compileSdk
-
     defaultConfig {
-        minSdk = Configs.minSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-
         buildConfigField(
             "String",
             "API_KEY",
@@ -41,19 +30,8 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         buildConfig = true
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
     }
 }
 
@@ -62,21 +40,21 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":feature:crypto:domain"))
 
-    implementation(Dependencies.AndroidX.workRuntimeKtx)
-    implementation(Dependencies.DI.koinAndroid)
-    implementation(Dependencies.Retrofit.retrofit)
-    implementation(Dependencies.Retrofit.moshi)
-    implementation(Dependencies.AndroidX.roomRuntime)
-    ksp(Dependencies.Retrofit.moshiCodegen)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.koin.android)
+    implementation(libs.retrofit.retrofit)
+    implementation(libs.moshi.moshi)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.moshi.codegen)
 
-    implementation(Dependencies.AndroidX.pagingRuntime)
+    implementation(libs.androidx.paging.runtime)
 
-    testImplementation(Dependencies.Test.junit4)
-    testImplementation(Dependencies.Test.truth)
-    testImplementation(Dependencies.Kotlin.coroutinesTest)
-    testImplementation(Dependencies.Test.mockk)
-    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
-    androidTestImplementation(Dependencies.AndroidX.espressoCore)
-    androidTestImplementation(Dependencies.Test.truth)
-    androidTestImplementation(Dependencies.Kotlin.coroutinesTest)
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.truth)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.test.mockk)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.test.truth)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 }

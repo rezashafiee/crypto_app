@@ -1,25 +1,15 @@
-import com.tilda.build.Configs
-import com.tilda.build.Dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("com.tilda.android.application")
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = Configs.applicationId
-    compileSdk = Configs.compileSdk
+    namespace = "com.tilda.crypto"
 
     defaultConfig {
-        applicationId = Configs.applicationId
-        minSdk = Configs.minSdk
-        targetSdk = Configs.targetSdk
-        versionCode = Configs.versionCode
-        versionName = Configs.versionName
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = "com.tilda.crypto"
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
@@ -31,11 +21,6 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         buildConfig = true
         compose = true
@@ -59,12 +44,6 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.fromTarget(Configs.jvmTarget)
-    }
-}
-
 dependencies {
 
     implementation(project(":core:data"))
@@ -73,31 +52,31 @@ dependencies {
     implementation(project(":feature:crypto:presentation"))
     implementation(project(":feature:crypto:data"))
 
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.lifecycleRuntimeKtx)
-    implementation(Dependencies.AndroidX.activityCompose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
 
-    implementation(platform(Dependencies.Compose.bom))
-    implementation(Dependencies.Compose.ui)
-    implementation(Dependencies.Compose.uiGraphics)
-    implementation(Dependencies.Compose.uiToolingPreview)
-    implementation(Dependencies.Compose.uiTextGoogleFonts)
-    implementation(Dependencies.Compose.material3)
-    implementation(Dependencies.Compose.material3Adaptive)
-    implementation(Dependencies.Compose.material3AdaptiveLayout)
-    implementation(Dependencies.Compose.material3AdaptiveNavigation)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui.text.google.fonts)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.material3.adaptive)
+    implementation(libs.compose.material3.adaptive.layout)
+    implementation(libs.compose.material3.adaptive.navigation)
 
-    implementation(Dependencies.AndroidX.pagingCompose)
+    implementation(libs.androidx.paging.compose)
 
-    implementation(Dependencies.DI.koinAndroid)
-    implementation(Dependencies.DI.koinCompose)
-    implementation(Dependencies.DI.koinWorkManager)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.workmanager)
 
-    debugImplementation(Dependencies.Performance.leakCanary)
+    debugImplementation(libs.performance.leakcanary)
 
-    testImplementation(Dependencies.Test.junit4)
-    testImplementation(Dependencies.Test.truth)
-    androidTestImplementation(Dependencies.AndroidX.testExtJunit)
-    androidTestImplementation(Dependencies.AndroidX.espressoCore)
-    androidTestImplementation(Dependencies.Test.truth)
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.truth)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.test.truth)
 }
