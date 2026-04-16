@@ -9,6 +9,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+/** Maps thrown exceptions into domain-friendly [NetworkError] values. */
 fun Throwable.toNetworkError(): NetworkError {
     return when (this) {
         is UnknownHostException -> NetworkError.NoInternetError(message.orEmpty())
@@ -26,4 +27,3 @@ fun Throwable.toNetworkError(): NetworkError {
         else -> NetworkError.UnknownError(message.orEmpty())
     }
 }
-

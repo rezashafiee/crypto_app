@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object HttpClientFactory {
 
+    /** Creates the shared [OkHttpClient] instance used by network requests. */
     fun create(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
