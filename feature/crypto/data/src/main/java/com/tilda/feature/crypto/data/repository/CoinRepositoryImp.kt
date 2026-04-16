@@ -20,13 +20,15 @@ class CoinRepositoryImp(
     private val coinRemoteDataSource: CoinRemoteDataSource
 ) : CoinRepository {
 
+    /** Maps paged [CoinEntity] items from Room into domain [Coin] models. */
     override fun getPagedCoins(): Flow<PagingData<Coin>> {
         return pager.flow.map { pagingData ->
             pagingData.map { coinEntity -> coinEntity.toCoin() }
         }
     }
 
-    override suspend fun getCoinsHistory(
+    /** Delegates coin history retrieval to the remote data source. */
+    override suspend fun getCoinHistory(
         coinSymbol: String,
         end: ZonedDateTime
     ): Result<List<CoinPrice>, NetworkError> {

@@ -9,9 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import java.time.ZonedDateTime
 
 interface CoinRepository {
+    /** Returns paged coins as a [Flow] to support incremental loading. */
     fun getPagedCoins(): Flow<PagingData<Coin>>
 
-    suspend fun getCoinsHistory(
+    /**
+     * Returns hourly price history for a specific coin symbol up to [end].
+     */
+    suspend fun getCoinHistory(
         coinSymbol: String,
         end: ZonedDateTime
     ): Result<List<CoinPrice>, NetworkError>

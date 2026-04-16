@@ -31,7 +31,7 @@ class CoinRepositoryImpTest {
     }
 
     @Test
-    fun getCoinsHistory_delegatesToRemoteDataSource() = runTest {
+    fun getCoinHistory_delegatesToRemoteDataSource() = runTest {
         // Given
         val end = ZonedDateTime.now()
         val expected = listOf(
@@ -40,7 +40,7 @@ class CoinRepositoryImpTest {
         coEvery { remote.getCoinHistory("btc", end) } returns Success(expected)
 
         // When
-        val result = repo.getCoinsHistory("btc", end)
+        val result = repo.getCoinHistory("btc", end)
 
         // Then
         coVerify(exactly = 1) { remote.getCoinHistory("btc", end) }

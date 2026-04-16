@@ -9,10 +9,13 @@ import java.time.ZonedDateTime
 class GetCoinHistoryUseCase(
     private val coinRepository: CoinRepository
 ) {
+    /**
+     * Fetches hourly price history for [coinSymbol] up to [end].
+     */
     suspend operator fun invoke(
         coinSymbol: String,
         end: ZonedDateTime
     ): Result<List<CoinPrice>, NetworkError> {
-        return coinRepository.getCoinsHistory(coinSymbol, end)
+        return coinRepository.getCoinHistory(coinSymbol, end)
     }
 }

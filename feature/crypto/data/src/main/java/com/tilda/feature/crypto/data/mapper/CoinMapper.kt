@@ -8,6 +8,7 @@ import com.tilda.feature.crypto.domain.model.CoinPrice
 import java.time.Instant
 import java.time.ZoneId
 
+/** Maps a remote [CoinDto] object to the domain [Coin] model. */
 fun CoinDto.toCoin() = Coin(
     id = id,
     name = name,
@@ -21,6 +22,7 @@ fun CoinDto.toCoin() = Coin(
     lastUpdate = lastUpdate
 )
 
+/** Maps a local [CoinEntity] object to the domain [Coin] model. */
 fun CoinEntity.toCoin() = Coin(
     id = id,
     name = name,
@@ -34,6 +36,7 @@ fun CoinEntity.toCoin() = Coin(
     lastUpdate = lastUpdate
 )
 
+/** Maps a domain [Coin] object to a local [CoinEntity]. */
 fun Coin.toCoinEntity() = CoinEntity(
     id = id,
     name = name,
@@ -48,6 +51,7 @@ fun Coin.toCoinEntity() = CoinEntity(
 )
 
 
+/** Converts a remote [CoinPriceDto] into a domain [CoinPrice] in UTC time. */
 fun CoinPriceDto.toCoinPrice(): CoinPrice {
     return CoinPrice(
         openingPrice = openingPrice,
