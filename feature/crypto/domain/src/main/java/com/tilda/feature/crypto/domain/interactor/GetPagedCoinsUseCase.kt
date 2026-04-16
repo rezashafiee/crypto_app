@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 class GetPagedCoinsUseCase(
     private val repository: CoinRepository
 ) {
-    /** Returns paged coins from [CoinRepository]. */
     operator fun invoke(): Flow<PagingData<Coin>> {
         return repository.getPagedCoins()
     }
