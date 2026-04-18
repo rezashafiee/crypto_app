@@ -28,6 +28,7 @@ data class DisplayableNumber(
 )
 
 
+/** Formats a [Double] with two decimal digits for UI display. */
 fun Double.toDisplayableNumber(): DisplayableNumber {
     val formatted = NumberFormat.getNumberInstance(Locale.getDefault())
         .apply {
@@ -40,6 +41,7 @@ fun Double.toDisplayableNumber(): DisplayableNumber {
     )
 }
 
+/** Maps a domain [Coin] into [CoinUi] with display-ready numeric fields. */
 fun Coin.toCoinUi() = CoinUi(
     id = id,
     rank = rank,
@@ -53,6 +55,7 @@ fun Coin.toCoinUi() = CoinUi(
     priceChangePercentage24h = priceChangePercentage24h.toDisplayableNumber(),
 )
 
+/** Prefixes this display value with a dollar sign. */
 fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
     return copy(formatted = "$$formatted")
 }
