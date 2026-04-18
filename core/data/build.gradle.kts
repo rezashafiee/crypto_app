@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.moshi.moshi)
     implementation(libs.okhttp.okhttp)
     implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.timber)
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

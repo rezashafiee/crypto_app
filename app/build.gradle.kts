@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.workmanager)
+    implementation(libs.timber)
 
     debugImplementation(libs.performance.leakcanary)
 
