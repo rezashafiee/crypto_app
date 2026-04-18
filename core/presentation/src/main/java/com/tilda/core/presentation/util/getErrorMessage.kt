@@ -5,6 +5,9 @@ import com.tilda.core.domain.util.DomainError
 import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.presentation.R
 
+/**
+ * Resolves a user-facing localized message for a [DomainError].
+ */
 fun getErrorMessage(context: Context, error: DomainError) =
     when (error) {
         is NetworkError.NoInternetError -> context.getString(R.string.no_internet_error)

@@ -7,6 +7,13 @@ import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 import retrofit2.Response
 
+/**
+ * Executes a Retrofit request and converts transport/parsing failures into [NetworkError].
+ *
+ * @param execute Suspended Retrofit call returning a [Response].
+ * @param mapper Maps the successful response body to the desired output type.
+ * @return [Result.Success] with mapped data or [Result.Error] with mapped [NetworkError].
+ */
 suspend fun <T, R> safeRetrofitCall(
     execute: suspend () -> Response<T>,
     mapper: (T) -> R
@@ -25,5 +32,4 @@ suspend fun <T, R> safeRetrofitCall(
         Result.Error(e.toNetworkError())
     }
 }
-
 

@@ -18,14 +18,14 @@ interface CoinDao {
     fun getPagingSource(): PagingSource<Int, CoinEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCoins(vararg coins: CoinEntity)
+    suspend fun insertCoins(vararg coins: CoinEntity)
 
     @Query("DELETE FROM coins")
-    suspend fun removeAllCoins()
+    suspend fun deleteAllCoins()
 
     @Query("SELECT lastUpdate FROM coins Limit 1")
-    suspend fun getLastUpdated(): Long
+    suspend fun getLastUpdatedEpochSeconds(): Long
 
     @Query("SELECT COUNT(*) FROM coins")
-    suspend fun countItems(): Int
+    suspend fun getCoinCount(): Int
 }

@@ -12,21 +12,21 @@ class CoinLocalDataSourceImp(
     private val coinDao = coinDatabase.coinDao()
 
     override suspend fun getItemsCount(): Int {
-        return coinDao.countItems()
+        return coinDao.getCoinCount()
     }
 
     override suspend fun getLastUpdated(): Long {
-        return coinDao.getLastUpdated()
+        return coinDao.getLastUpdatedEpochSeconds()
     }
 
     override suspend fun replaceAllCoins(coinEntities: List<CoinEntity>) {
         coinDatabase.withTransaction {
-            coinDao.removeAllCoins()
-            coinDao.addCoins(*coinEntities.toTypedArray())
+            coinDao.deleteAllCoins()
+            coinDao.insertCoins(*coinEntities.toTypedArray())
         }
     }
 
     override suspend fun addCoins(coinEntities: List<CoinEntity>) {
-        coinDao.addCoins(*coinEntities.toTypedArray())
+        coinDao.insertCoins(*coinEntities.toTypedArray())
     }
 }

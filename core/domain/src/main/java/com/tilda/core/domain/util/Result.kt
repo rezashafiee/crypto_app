@@ -7,6 +7,7 @@ sealed interface Result<out D, out E : DomainError> {
     data class Error<out E : DomainError>(val error: E) : Result<Nothing, E>
 }
 
+/** Transforms success data while keeping error values unchanged. */
 inline fun <T, E : DomainError, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     return when (this) {
         is Result.Error -> Result.Error(error)
@@ -14,10 +15,12 @@ inline fun <T, E : DomainError, R> Result<T, E>.map(map: (T) -> R): Result<R, E>
     }
 }
 
+/** Converts any [Result] success payload into [Unit]. */
 fun <T, E : DomainError> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map { }
 }
 
+/** Runs [action] only when the current result is [Result.Success]. */
 inline fun <T, E : DomainError> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T, E> {
     return when (this) {
         is Result.Error -> this
@@ -28,6 +31,7 @@ inline fun <T, E : DomainError> Result<T, E>.onSuccess(action: (T) -> Unit): Res
     }
 }
 
+/** Runs [action] only when the current result is [Result.Error]. */
 inline fun <T, E : DomainError> Result<T, E>.onError(action: (E) -> Unit): Result<T, E> {
     return when (this) {
         is Result.Error -> {

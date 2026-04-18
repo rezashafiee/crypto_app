@@ -168,7 +168,7 @@ class CoinsRemoteMediatorIntegrationTest {
     fun initialize_skipsInitialRefresh_whenCacheIsFresh() = runTest {
         // given
         val nowSeconds = System.currentTimeMillis() / 1000
-        db.coinDao().addCoins(
+        db.coinDao().insertCoins(
             CoinEntity(
                 id = 1,
                 rank = "1",
@@ -197,7 +197,7 @@ class CoinsRemoteMediatorIntegrationTest {
     fun initialize_launchesInitialRefresh_whenCacheIsStale() = runTest {
         // given
         val nowSeconds = System.currentTimeMillis() / 1000
-        db.coinDao().addCoins(
+        db.coinDao().insertCoins(
             CoinEntity(
                 id = 2,
                 rank = "2",

@@ -42,26 +42,26 @@ class CoinLocalDataSourceImpTest {
     @Test
     fun getItemsCount_delegatesToDao() = runTest {
         // given
-        coEvery { coinDao.countItems() } returns 42
+        coEvery { coinDao.getCoinCount() } returns 42
 
         // when
         val result = dataSource.getItemsCount()
 
         // then
-        coVerify(exactly = 1) { coinDao.countItems() }
+        coVerify(exactly = 1) { coinDao.getCoinCount() }
         assertThat(result).isEqualTo(42)
     }
 
     @Test
     fun getLastUpdated_delegatesToDao() = runTest {
         // given
-        coEvery { coinDao.getLastUpdated() } returns 123456789L
+        coEvery { coinDao.getLastUpdatedEpochSeconds() } returns 123456789L
 
         // when
         val result = dataSource.getLastUpdated()
 
         // then
-        coVerify(exactly = 1) { coinDao.getLastUpdated() }
+        coVerify(exactly = 1) { coinDao.getLastUpdatedEpochSeconds() }
         assertThat(result).isEqualTo(123456789L)
     }
 
@@ -74,9 +74,9 @@ class CoinLocalDataSourceImpTest {
         dataSource.addCoins(items)
 
         // then
-        coVerify(exactly = 1) { coinDao.addCoins(*items.toTypedArray()) }
+        coVerify(exactly = 1) { coinDao.insertCoins(*items.toTypedArray()) }
         // Ensure no unintended calls
-        coVerify(exactly = 0) { coinDao.removeAllCoins() }
+        coVerify(exactly = 0) { coinDao.deleteAllCoins() }
     }
 
     @Test
@@ -94,8 +94,8 @@ class CoinLocalDataSourceImpTest {
         dataSource.replaceAllCoins(items)
 
         // then
-        coVerify(exactly = 1) { coinDao.removeAllCoins() }
-        coVerify(exactly = 1) { coinDao.addCoins(*items.toTypedArray()) }
+        coVerify(exactly = 1) { coinDao.deleteAllCoins() }
+        coVerify(exactly = 1) { coinDao.insertCoins(*items.toTypedArray()) }
     }
 
     private fun sampleItems(): List<CoinEntity> = listOf(
