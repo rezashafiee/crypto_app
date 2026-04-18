@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.tilda.lint.NoAndroidLogDetectorTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-04-18T21:06:24.391Z" hostname="runnervmeorf1" time="13.558">
-  <properties/>
-  <testcase name="testReportsErrorWhenAndroidLogIsUsed" classname="com.tilda.lint.NoAndroidLogDetectorTest" time="12.09"/>
-  <testcase name="testDoesNotReportWhenTimberIsUsed" classname="com.tilda.lint.NoAndroidLogDetectorTest" time="1.468"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
