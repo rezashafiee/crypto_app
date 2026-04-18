@@ -1,13 +1,18 @@
 package com.tilda.lint
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class NoAndroidLogDetectorTest : LintDetectorTest() {
     override fun getDetector() = NoAndroidLogDetector()
 
     override fun getIssues() = listOf(NoAndroidLogDetector.ISSUE)
 
-    fun testReportsErrorWhenAndroidLogIsUsed() {
+    @Test
+    fun reportsErrorWhenAndroidLogIsUsed() {
         // given
         val source =
             kotlin(
@@ -30,7 +35,8 @@ class NoAndroidLogDetectorTest : LintDetectorTest() {
         result.expectContains("Use Timber instead of android.util.Log.")
     }
 
-    fun testDoesNotReportWhenTimberIsUsed() {
+    @Test
+    fun doesNotReportWhenTimberIsUsed() {
         // given
         val source =
             kotlin(
