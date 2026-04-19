@@ -30,3 +30,7 @@ tasks.withType<KotlinJvmCompile>().configureEach {
         jvmTarget.set(JvmTarget.JVM_11)
     }
 }
+
+dependencies {
+    add("lintChecks", project(":lint:checks"))
+}
