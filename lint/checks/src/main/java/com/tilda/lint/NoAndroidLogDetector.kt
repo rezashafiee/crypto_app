@@ -10,17 +10,23 @@ import com.android.tools.lint.detector.api.Severity
 import com.intellij.psi.PsiMethod
 import org.jetbrains.uast.UCallExpression
 
-class NoAndroidLogDetector : Detector(), Detector.UastScanner {
+class NoAndroidLogDetector :
+    Detector(),
+    Detector.UastScanner {
     override fun getApplicableMethodNames(): List<String> = LOG_METHOD_NAMES
 
-    override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
+    override fun visitMethodCall(
+        context: JavaContext,
+        node: UCallExpression,
+        method: PsiMethod,
+    ) {
         val containingClassName = method.containingClass?.qualifiedName ?: return
         if (containingClassName == "android.util.Log") {
             context.report(
                 issue = ISSUE,
                 scope = node,
                 location = context.getNameLocation(node),
-                message = "Use Timber instead of android.util.Log."
+                message = "Use Timber instead of android.util.Log.",
             )
         }
     }
@@ -38,7 +44,7 @@ class NoAndroidLogDetector : Detector(), Detector.UastScanner {
                 priority = 8,
                 severity = Severity.ERROR,
                 implementation =
-                    Implementation(NoAndroidLogDetector::class.java, Scope.JAVA_FILE_SCOPE)
+                    Implementation(NoAndroidLogDetector::class.java, Scope.JAVA_FILE_SCOPE),
             )
     }
 }

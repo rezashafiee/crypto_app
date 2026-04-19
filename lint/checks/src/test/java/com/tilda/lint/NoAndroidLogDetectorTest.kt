@@ -25,7 +25,7 @@ class NoAndroidLogDetectorTest : LintDetectorTest() {
                         Log.d("TAG", "message")
                     }
                 }
-                """.trimIndent()
+                """.trimIndent(),
             )
 
         // when
@@ -49,7 +49,7 @@ class NoAndroidLogDetectorTest : LintDetectorTest() {
                         Timber.d("message")
                     }
                 }
-                """.trimIndent()
+                """.trimIndent(),
             )
         val timberStub =
             kotlin(
@@ -59,7 +59,7 @@ class NoAndroidLogDetectorTest : LintDetectorTest() {
                 object Timber {
                     fun d(message: String) = Unit
                 }
-                """.trimIndent()
+                """.trimIndent(),
             )
 
         // when
