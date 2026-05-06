@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     id("com.tilda.android.library")
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 val localProperties = Properties()
@@ -41,7 +42,8 @@ dependencies {
     implementation(project(":feature:crypto:domain"))
 
     implementation(libs.androidx.work.runtime.ktx)
-    implementation(libs.koin.android)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.retrofit.retrofit)
     implementation(libs.moshi.moshi)
     implementation(libs.androidx.room.runtime)

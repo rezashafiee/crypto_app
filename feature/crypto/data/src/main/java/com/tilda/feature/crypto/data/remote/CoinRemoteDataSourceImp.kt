@@ -9,8 +9,9 @@ import com.tilda.feature.crypto.data.mapper.toCoinPrice
 import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.domain.model.CoinPrice
 import java.time.ZonedDateTime
+import javax.inject.Inject
 
-class CoinRemoteDataSourceImp(
+class CoinRemoteDataSourceImp @Inject constructor(
     private val coinApiService: CoinApiService
 ) : CoinRemoteDataSource {
 

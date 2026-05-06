@@ -1,6 +1,7 @@
 plugins {
     id("com.tilda.android.library")
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -47,7 +48,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
 
-    implementation(libs.koin.android)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.test.junit4)
     testImplementation(libs.test.truth)

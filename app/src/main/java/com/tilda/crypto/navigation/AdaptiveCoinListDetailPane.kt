@@ -9,18 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tilda.feature.crypto.presentation.coin_detail.CoinDetailScreen
 import com.tilda.feature.crypto.presentation.coin_list.CoinListScreen
 import com.tilda.feature.crypto.presentation.coin_list.CoinListViewModel
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun AdaptiveCoinListDetailPane(
     modifier: Modifier = Modifier,
-    viewModel: CoinListViewModel = koinViewModel()
+    viewModel: CoinListViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

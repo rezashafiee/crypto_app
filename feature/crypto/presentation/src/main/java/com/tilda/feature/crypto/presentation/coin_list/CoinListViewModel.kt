@@ -10,6 +10,7 @@ import com.tilda.feature.crypto.domain.interactor.GetCoinHistoryUseCase
 import com.tilda.feature.crypto.domain.interactor.GetPagedCoinsUseCase
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.toCoinUi
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +22,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
+import javax.inject.Inject
 
-class CoinListViewModel(
+@HiltViewModel
+class CoinListViewModel @Inject constructor(
     getPagedCoinsUseCase: GetPagedCoinsUseCase,
     private val getCoinHistoryUseCase: GetCoinHistoryUseCase
 ) : ViewModel() {

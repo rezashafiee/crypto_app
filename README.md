@@ -69,7 +69,7 @@ Presentation and Data layers depend on it, but the Domain layer does not depend 
 * **Retrofit + Moshi:** For API requests and JSON serialization/deserialization.
 * **Room:** For local data persistence (caching).
 * **Paging 3:** For efficiently loading and displaying large lists of data.
-* **Koin:** For dependency injection.
+* **Hilt:** For dependency injection.
 * **Konsist:** For enforcing code consistency and architectural rules.
 
 ## Modules

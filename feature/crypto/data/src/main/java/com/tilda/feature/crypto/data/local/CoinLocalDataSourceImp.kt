@@ -4,8 +4,9 @@ import androidx.room.withTransaction
 import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
+import javax.inject.Inject
 
-class CoinLocalDataSourceImp(
+class CoinLocalDataSourceImp @Inject constructor(
     private val coinDatabase: CoinDatabase
 ) : CoinLocalDataSource {
 

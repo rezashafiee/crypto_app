@@ -16,7 +16,9 @@ import com.tilda.core.presentation.util.LocalDeviceWindowInfo
 import com.tilda.core.presentation.util.rememberFoldableInfo
 import com.tilda.core.presentation.util.rememberScreenOrientation
 import com.tilda.crypto.navigation.AdaptiveCoinListDetailPane
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

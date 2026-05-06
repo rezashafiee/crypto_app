@@ -1,6 +1,8 @@
 plugins {
     id("com.tilda.android.application")
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -68,9 +70,9 @@ dependencies {
 
     implementation(libs.androidx.paging.compose)
 
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose)
-    implementation(libs.koin.workmanager)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
 
     debugImplementation(libs.performance.leakcanary)
 

@@ -10,9 +10,10 @@ import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.data.mapper.toCoinEntity
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class CoinsRemoteMediator(
+class CoinsRemoteMediator @Inject constructor(
     private val remoteDataSource: CoinRemoteDataSource,
     private val localDataSource: CoinLocalDataSource
 ) : RemoteMediator<Int, CoinEntity>() {

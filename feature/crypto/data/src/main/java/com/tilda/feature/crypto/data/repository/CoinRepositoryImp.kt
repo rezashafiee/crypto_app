@@ -14,8 +14,9 @@ import com.tilda.feature.crypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.ZonedDateTime
+import javax.inject.Inject
 
-class CoinRepositoryImp(
+class CoinRepositoryImp @Inject constructor(
     private val pager: Pager<Int, CoinEntity>,
     private val coinRemoteDataSource: CoinRemoteDataSource
 ) : CoinRepository {
