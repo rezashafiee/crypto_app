@@ -53,6 +53,9 @@ dependencies {
     implementation(project(":feature:crypto:domain"))
     implementation(project(":feature:crypto:presentation"))
     implementation(project(":feature:crypto:data"))
+    implementation(project(":feature:news:domain"))
+    implementation(project(":feature:news:presentation"))
+    implementation(project(":feature:news:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -64,6 +67,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.ui.text.google.fonts)
     implementation(libs.compose.material3)
+    implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.material3.adaptive)
     implementation(libs.compose.material3.adaptive.layout)
     implementation(libs.compose.material3.adaptive.navigation)
