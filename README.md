@@ -1,20 +1,24 @@
 # Crypto App
 
-Crypto App is an Android application designed to track cryptocurrency information. **It serves as a
-showcase project demonstrating how to implement an Android application using Clean Architecture and
-a modular structure.** It allows users to browse a list of cryptocurrencies and view details for
-specific coins.
+Crypto App is an Android application designed to track cryptocurrency information and market news.
+**It serves as a showcase project demonstrating how to implement an Android application using Clean
+Architecture and a modular structure.** It allows users to browse a list of cryptocurrencies, view
+details for specific coins, and read the latest crypto news.
 
 ## Features
 
 * **Browse Cryptocurrencies:** Displays a paginated list of available cryptocurrencies.
 * **View Coin Details:** Shows detailed information for a selected cryptocurrency, potentially
   including price charts.
-* **Offline Caching:** Utilizes a local database to cache cryptocurrency data for offline access and
-  faster loading.
+* **Read Crypto News:** Provides a paginated news feed with article details, images, categories,
+  source information, and links to original articles.
+* **Offline Caching:** Utilizes local databases to cache cryptocurrency and news data for offline
+  access and faster loading.
 * **Modern and Adaptive UI:** Leverages Jetpack Compose to create a responsive user interface that
   adapts to different screen sizes and orientations, effectively implementing patterns like
   list-detail views for optimal user experience on both phones and tablets.
+* **Top-Level Navigation:** Uses adaptive bottom navigation or navigation rail destinations for
+  switching between coins and news.
 
 <table>
   <tr>
@@ -86,3 +90,9 @@ Presentation and Data layers depend on it, but the Domain layer does not depend 
     * `feature/crypto/domain`: Use cases and domain models for the crypto feature.
     * `feature/crypto/presentation`: ViewModels, Composable screens, and UI models for the crypto
       feature.
+* **`feature/news`:** A feature module dedicated to crypto news browsing.
+    * `feature/news/data`: Remote news API integration, local Room cache, paging mediator, and
+      repository implementation for news articles.
+    * `feature/news/domain`: News article models, use cases, and repository contracts.
+    * `feature/news/presentation`: ViewModels, Composable list/detail screens, and UI models for the
+      news feature.

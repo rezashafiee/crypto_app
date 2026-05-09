@@ -1,10 +1,17 @@
 package com.tilda.feature.crypto.presentation.models
 
-import android.icu.text.NumberFormat
 import androidx.compose.runtime.Immutable
 import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.domain.model.CoinPrice
+import java.text.NumberFormat
 import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.ceil
+import kotlin.math.log10
+
+private const val DefaultFractionDigits = 2
+private const val SignificantFractionDigits = 2
+private const val MaximumPriceFractionDigits = 12
 
 @Immutable
 data class CoinUi(
@@ -30,34 +37,74 @@ data class DisplayableNumber(
 
 /** Formats a [Double] with two decimal digits for UI display. */
 fun Double.toDisplayableNumber(): DisplayableNumber {
-    val formatted = NumberFormat.getNumberInstance(Locale.getDefault())
-        .apply {
-            minimumFractionDigits = 2
-            maximumFractionDigits = 2
-        }.format(this)
     return DisplayableNumber(
         value = this,
-        formatted = formatted
+        formatted = formatNumber(
+            minimumFractionDigits = DefaultFractionDigits,
+            maximumFractionDigits = DefaultFractionDigits
+        )
+    )
+}
+
+/**
+ * Formats a USD price for UI display.
+ *
+ * The displayed precision is derived from the related price change so each coin can show the
+ * smallest useful movement without applying a fixed threshold across all prices.
+ */
+fun Double.toDisplayablePrice(referenceChange: Double = this): DisplayableNumber {
+    return DisplayableNumber(
+        value = this,
+        formatted = formatNumber(
+            minimumFractionDigits = DefaultFractionDigits,
+            maximumFractionDigits = referenceChange.priceFractionDigits(fallbackValue = this)
+        )
     )
 }
 
 /** Maps a domain [Coin] into [CoinUi] with display-ready numeric fields. */
-fun Coin.toCoinUi() = CoinUi(
-    id = id,
-    rank = rank,
-    name = name,
-    symbol = symbol,
-    logoUrl = logoUrl,
-    currentPrice = currentPrice.toDisplayableNumber().addCurrencySign(),
-    marketCap = marketCap.toDisplayableNumber().addCurrencySign(),
-    marketCapShorted = (marketCap / 1000000000).toDisplayableNumber().addCurrencySign(),
-    priceChange24h = priceChange24h.toDisplayableNumber().addCurrencySign(),
-    priceChangePercentage24h = priceChangePercentage24h.toDisplayableNumber(),
-)
+fun Coin.toCoinUi(): CoinUi {
+    return CoinUi(
+        id = id,
+        rank = rank,
+        name = name,
+        symbol = symbol,
+        logoUrl = logoUrl,
+        currentPrice = currentPrice.toDisplayablePrice(referenceChange = priceChange24h)
+            .addCurrencySign(),
+        marketCap = marketCap.toDisplayableNumber().addCurrencySign(),
+        marketCapShorted = (marketCap / 1000000000).toDisplayableNumber().addCurrencySign(),
+        priceChange24h = priceChange24h.toDisplayablePrice(referenceChange = priceChange24h)
+            .addCurrencySign(),
+        priceChangePercentage24h = priceChangePercentage24h.toDisplayableNumber(),
+    )
+}
 
 /** Prefixes this display value with a dollar sign. */
 fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
     return copy(formatted = "$$formatted")
+}
+
+private fun Double.formatNumber(
+    minimumFractionDigits: Int,
+    maximumFractionDigits: Int
+): String {
+    return NumberFormat.getNumberInstance(Locale.getDefault())
+        .apply {
+            this.minimumFractionDigits = minimumFractionDigits
+            this.maximumFractionDigits = maximumFractionDigits
+        }
+        .format(this)
+}
+
+private fun Double.priceFractionDigits(fallbackValue: Double): Int {
+    val referenceValue = abs(this).takeUnless { it == 0.0 } ?: abs(fallbackValue)
+    if (!referenceValue.isFinite() || referenceValue == 0.0 || referenceValue >= 1.0) {
+        return DefaultFractionDigits
+    }
+
+    return (ceil(-log10(referenceValue)).toInt() + SignificantFractionDigits - 1)
+        .coerceIn(DefaultFractionDigits, MaximumPriceFractionDigits)
 }
 
 internal val previewCoin: CoinUi = Coin(

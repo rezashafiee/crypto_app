@@ -34,6 +34,7 @@ import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.addCurrencySign
 import com.tilda.feature.crypto.presentation.models.previewCoin
 import com.tilda.feature.crypto.presentation.models.toDisplayableNumber
+import com.tilda.feature.crypto.presentation.models.toDisplayablePrice
 
 @Composable
 fun CompactView(
@@ -122,10 +123,11 @@ fun CompactView(
                 volume24h = coinUi.coinPriceHistory.sumOf { it.volume }
                     .toDisplayableNumber().formatted,
                 popularity = "#${coinUi.rank}",
-                lowestPrice = coinUi.coinPriceHistory.minOf { it.lowestPrice }.toDisplayableNumber()
+                lowestPrice = coinUi.coinPriceHistory.minOf { it.lowestPrice }
+                    .toDisplayablePrice(referenceChange = coinUi.priceChange24h.value)
                     .addCurrencySign().formatted,
                 highestPrice = coinUi.coinPriceHistory.maxOf { it.highestPrice }
-                    .toDisplayableNumber()
+                    .toDisplayablePrice(referenceChange = coinUi.priceChange24h.value)
                     .addCurrencySign().formatted,
                 modifier = Modifier
                     .widthIn(max = 400.dp)

@@ -37,7 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.feature.crypto.domain.model.CoinPrice
-import java.text.NumberFormat
+import com.tilda.feature.crypto.presentation.models.addCurrencySign
+import com.tilda.feature.crypto.presentation.models.toDisplayablePrice
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -50,6 +51,9 @@ private val PlotStartPadding = 72.dp
 private val PlotTopPadding = 30.dp
 private val PlotEndPadding = 16.dp
 private val PlotBottomPadding = 48.dp
+private val ChartAxisLabelFontSize = 11.sp
+private val ChartMarkerTitleFontSize = 12.sp
+private val ChartMarkerSubtitleFontSize = 10.sp
 private const val Y_LABEL_COUNT = 6
 
 @Composable
@@ -61,6 +65,7 @@ fun PriceLineChart(
 
     val hapticFeedback = LocalHapticFeedback.current
     val range = remember(history) { history.priceRange() }
+    val chartReferenceChange = remember(range) { range.span / (Y_LABEL_COUNT - 1) }
     val labelIndices = remember(history) { history.labelIndices() }
     val timeFormatter = remember { DateTimeFormatter.ofPattern("h a", Locale.getDefault()) }
 
@@ -71,7 +76,7 @@ fun PriceLineChart(
     }
     val gridColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.72f)
     val axisColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.42f)
-    val labelColor = MaterialTheme.colorScheme.onSurface
+    val labelColor = MaterialTheme.colorScheme.outline
     val mutedLabelColor = MaterialTheme.colorScheme.outline
     val markerSurface = MaterialTheme.colorScheme.surfaceContainerHighest
 
@@ -138,6 +143,7 @@ fun PriceLineChart(
         drawChartGrid(
             plot = plot,
             range = range,
+            referenceChange = chartReferenceChange,
             gridColor = gridColor,
             axisColor = axisColor,
             labelColor = labelColor,
@@ -159,6 +165,7 @@ fun PriceLineChart(
             drawSelectedPoint(
                 index = index,
                 plot = plot,
+                referenceChange = chartReferenceChange,
                 points = points,
                 history = history,
                 lineColor = lineColor,
@@ -243,6 +250,7 @@ private fun nearestPointIndex(
 private fun DrawScope.drawChartGrid(
     plot: PlotBounds,
     range: PriceRange,
+    referenceChange: Double,
     gridColor: Color,
     axisColor: Color,
     labelColor: Color
@@ -264,11 +272,11 @@ private fun DrawScope.drawChartGrid(
             pathEffect = dash,
         )
         drawTextLabel(
-            text = value.toPriceLabel(),
+            text = value.toPriceLabel(referenceChange = referenceChange),
             x = 12.dp.toPx(),
             baseline = y + 5.dp.toPx(),
             color = labelColor,
-            fontSize = 14.sp,
+            fontSize = ChartAxisLabelFontSize,
         )
     }
 
@@ -307,7 +315,7 @@ private fun DrawScope.drawTimeLabels(
             x = point.x,
             baseline = size.height - 14.dp.toPx(),
             color = labelColor,
-            fontSize = 14.sp,
+            fontSize = ChartAxisLabelFontSize,
             align = Paint.Align.CENTER,
         )
     }
@@ -359,6 +367,7 @@ private fun DrawScope.drawLineChart(
 private fun DrawScope.drawSelectedPoint(
     index: Int,
     plot: PlotBounds,
+    referenceChange: Double,
     points: List<Offset>,
     history: List<CoinPrice>,
     lineColor: Color,
@@ -402,7 +411,7 @@ private fun DrawScope.drawSelectedPoint(
 
     drawMarkerLabel(
         point = point,
-        text = history[index].closingPrice.toPriceLabel(),
+        text = history[index].closingPrice.toPriceLabel(referenceChange = referenceChange),
         subtext = history[index].dateTime.format(timeFormatter),
         labelColor = labelColor,
         mutedLabelColor = mutedLabelColor,
@@ -422,12 +431,12 @@ private fun DrawScope.drawMarkerLabel(
 ) {
     val titlePaint = textPaint(
         color = labelColor,
-        fontSize = 13.sp,
+        fontSize = ChartMarkerTitleFontSize,
         isBold = true,
     )
     val subtitlePaint = textPaint(
         color = mutedLabelColor,
-        fontSize = 11.sp,
+        fontSize = ChartMarkerSubtitleFontSize,
     )
     val horizontalPadding = 12.dp.toPx()
     val verticalPadding = 8.dp.toPx()
@@ -455,13 +464,16 @@ private fun DrawScope.drawMarkerLabel(
     drawContext.canvas.nativeCanvas.drawText(
         text,
         bubbleLeft + horizontalPadding,
-        bubbleTop + verticalPadding + 13.sp.toPx(),
+        bubbleTop + verticalPadding + ChartMarkerTitleFontSize.toPx(),
         titlePaint,
     )
     drawContext.canvas.nativeCanvas.drawText(
         subtext,
         bubbleLeft + horizontalPadding,
-        bubbleTop + verticalPadding + 13.sp.toPx() + 11.sp.toPx() + labelGap,
+        bubbleTop + verticalPadding +
+            ChartMarkerTitleFontSize.toPx() +
+            ChartMarkerSubtitleFontSize.toPx() +
+            labelGap,
         subtitlePaint,
     )
 }
@@ -504,14 +516,8 @@ private fun DrawScope.textPaint(
     }
 }
 
-private fun Double.toPriceLabel(): String {
-    val absoluteValue = abs(this)
-    return NumberFormat.getCurrencyInstance(Locale.getDefault())
-        .apply {
-            minimumFractionDigits = if (absoluteValue >= 1_000) 0 else 2
-            maximumFractionDigits = if (absoluteValue >= 1_000) 0 else 2
-        }
-        .format(this)
+private fun Double.toPriceLabel(referenceChange: Double = this): String {
+    return toDisplayablePrice(referenceChange = referenceChange).addCurrencySign().formatted
 }
 
 internal val previewLineChartHistory: List<CoinPrice> = listOf(
