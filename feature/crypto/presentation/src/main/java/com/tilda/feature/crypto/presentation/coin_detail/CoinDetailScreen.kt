@@ -1,18 +1,13 @@
 package com.tilda.feature.crypto.presentation.coin_detail
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.tilda.core.presentation.util.LocalDeviceWindowInfo
 import com.tilda.feature.crypto.presentation.coin_detail.components.CompactView
+import com.tilda.feature.crypto.presentation.coin_detail.components.TabletView
 import com.tilda.feature.crypto.presentation.coin_list.CoinListUiState
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
@@ -30,6 +25,8 @@ fun CoinDetailScreen(
         BoxWithConstraints {
             val deviceWindowInfo = LocalDeviceWindowInfo.current
             val isCompact = this.maxWidth < 600.dp
+            val showBackButton = !deviceWindowInfo.foldableInfo.isFoldable &&
+                !deviceWindowInfo.orientationInfo.isLandscape
 
             if (isCompact) {
                 CompactView(
@@ -40,18 +37,13 @@ fun CoinDetailScreen(
                     onFavoriteClick = { onFavoriteClick(coin) }
                 )
             } else {
-                Box(
-                    contentAlignment = Alignment.Center,
+                TabletView(
+                    coinUi = coin,
+                    showBackButton = showBackButton,
+                    onBackClick = onBackClick,
+                    onFavoriteClick = { onFavoriteClick(coin) },
                     modifier = modifier
-                        .fillMaxSize()
-                        .background(Color.Black)
-                ) {
-                    Text(
-                        text = "TabletView Under construction",
-                        modifier = modifier.align(Alignment.Center),
-                        color = Color.White
-                    )
-                }
+                )
             }
         }
     }

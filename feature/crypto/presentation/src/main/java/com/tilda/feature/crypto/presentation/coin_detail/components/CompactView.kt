@@ -32,10 +32,7 @@ import com.tilda.core.presentation.components.CoinTitle
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.feature.crypto.presentation.R
 import com.tilda.feature.crypto.presentation.models.CoinUi
-import com.tilda.feature.crypto.presentation.models.addCurrencySign
 import com.tilda.feature.crypto.presentation.models.previewCoin
-import com.tilda.feature.crypto.presentation.models.toDisplayableNumber
-import com.tilda.feature.crypto.presentation.models.toDisplayablePrice
 
 @Composable
 fun CompactView(
@@ -140,22 +137,10 @@ fun CompactView(
         Spacer(modifier = Modifier.height(32.dp))
         ChartComponent(coinUi, modifier)
         Spacer(modifier = Modifier.height(32.dp))
-        if (coinUi.coinPriceHistory.isNotEmpty()) {
-            StatisticsComponent(
-                marketCap = coinUi.marketCapShorted.formatted,
-                volume24h = coinUi.coinPriceHistory.sumOf { it.volume }
-                    .toDisplayableNumber().formatted,
-                popularity = "#${coinUi.rank}",
-                lowestPrice = coinUi.coinPriceHistory.minOf { it.lowestPrice }
-                    .toDisplayablePrice(referenceChange = coinUi.priceChange24h.value)
-                    .addCurrencySign().formatted,
-                highestPrice = coinUi.coinPriceHistory.maxOf { it.highestPrice }
-                    .toDisplayablePrice(referenceChange = coinUi.priceChange24h.value)
-                    .addCurrencySign().formatted,
-                modifier = Modifier
-                    .widthIn(max = 400.dp)
-            )
-        }
+        CoinMarketStatistics(
+            coinUi = coinUi,
+            modifier = Modifier.widthIn(max = 400.dp)
+        )
     }
 }
 
