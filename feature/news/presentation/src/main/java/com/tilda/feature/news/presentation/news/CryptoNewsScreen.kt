@@ -25,6 +25,8 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -35,9 +37,11 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -52,6 +56,7 @@ import com.tilda.core.presentation.components.LoadingView
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.util.LocalDeviceWindowInfo
 import com.tilda.core.presentation.util.getErrorMessage
+import com.tilda.feature.news.presentation.R
 import com.tilda.feature.news.presentation.models.CryptoNewsUi
 import com.tilda.feature.news.presentation.models.previewNewsArticle
 import kotlinx.coroutines.flow.flowOf
@@ -184,8 +189,12 @@ private fun NewsTitleList(
                     fontWeight = FontWeight.Black,
                     modifier = Modifier.weight(1f)
                 )
-                TextButton(onClick = onRefreshClick) {
-                    Text("Refresh")
+                IconButton(onClick = onRefreshClick) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_refresh),
+                        contentDescription = "Refresh news",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }
@@ -318,11 +327,15 @@ private fun NewsArticleDetail(
     ) {
         if (showBack) {
             item {
-                TextButton(
+                IconButton(
                     onClick = onBackClick,
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp)
                 ) {
-                    Text("Back")
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_back),
+                        contentDescription = "Back to news list",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }

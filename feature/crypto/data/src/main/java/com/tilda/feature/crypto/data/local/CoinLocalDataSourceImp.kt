@@ -3,7 +3,9 @@ package com.tilda.feature.crypto.data.local
 import androidx.room.withTransaction
 import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.model.CoinEntity
+import com.tilda.core.data.db.model.FavoriteCoinEntity
 import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CoinLocalDataSourceImp @Inject constructor(
@@ -11,6 +13,7 @@ class CoinLocalDataSourceImp @Inject constructor(
 ) : CoinLocalDataSource {
 
     private val coinDao = coinDatabase.coinDao()
+    private val favoriteCoinDao = coinDatabase.favoriteCoinDao()
 
     override suspend fun getItemsCount(): Int {
         return coinDao.getCoinCount()
@@ -29,5 +32,17 @@ class CoinLocalDataSourceImp @Inject constructor(
 
     override suspend fun addCoins(coinEntities: List<CoinEntity>) {
         coinDao.insertCoins(*coinEntities.toTypedArray())
+    }
+
+    override fun getFavoriteCoinIds(): Flow<List<Int>> {
+        return favoriteCoinDao.getFavoriteCoinIds()
+    }
+
+    override suspend fun addFavoriteCoin(coinId: Int) {
+        favoriteCoinDao.insertFavoriteCoin(FavoriteCoinEntity(coinId))
+    }
+
+    override suspend fun deleteFavoriteCoin(coinId: Int) {
+        favoriteCoinDao.deleteFavoriteCoin(coinId)
     }
 }

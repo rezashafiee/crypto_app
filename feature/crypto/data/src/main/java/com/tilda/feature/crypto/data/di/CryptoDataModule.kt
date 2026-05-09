@@ -13,7 +13,9 @@ import com.tilda.feature.crypto.data.paging.CoinsRemoteMediator
 import com.tilda.feature.crypto.data.remote.CoinRemoteDataSourceImp
 import com.tilda.feature.crypto.data.repository.CoinRepositoryImp
 import com.tilda.feature.crypto.domain.interactor.GetCoinHistoryUseCase
+import com.tilda.feature.crypto.domain.interactor.GetFavoriteCoinIdsUseCase
 import com.tilda.feature.crypto.domain.interactor.GetPagedCoinsUseCase
+import com.tilda.feature.crypto.domain.interactor.SetCoinFavoriteUseCase
 import com.tilda.feature.crypto.domain.repository.CoinRepository
 import dagger.Binds
 import dagger.Module
@@ -62,6 +64,20 @@ abstract class CryptoDataModule {
         @Singleton
         fun provideGetCoinHistoryUseCase(repository: CoinRepository): GetCoinHistoryUseCase {
             return GetCoinHistoryUseCase(repository)
+        }
+
+        @Provides
+        @Singleton
+        fun provideGetFavoriteCoinIdsUseCase(
+            repository: CoinRepository
+        ): GetFavoriteCoinIdsUseCase {
+            return GetFavoriteCoinIdsUseCase(repository)
+        }
+
+        @Provides
+        @Singleton
+        fun provideSetCoinFavoriteUseCase(repository: CoinRepository): SetCoinFavoriteUseCase {
+            return SetCoinFavoriteUseCase(repository)
         }
 
         @Provides

@@ -1,5 +1,6 @@
 package com.tilda.crypto.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -27,6 +28,15 @@ fun AdaptiveCoinListDetailPane(
     val listDetailNavigator = rememberListDetailPaneScaffoldNavigator<Any>()
     val scope = rememberCoroutineScope()
 
+    BackHandler(
+        enabled = listDetailNavigator.canNavigateBack(),
+        onBack = {
+            scope.launch {
+                listDetailNavigator.navigateBack()
+            }
+        }
+    )
+
     NavigableListDetailPaneScaffold(
         navigator = listDetailNavigator,
         listPane = {
@@ -40,13 +50,23 @@ fun AdaptiveCoinListDetailPane(
                                 ListDetailPaneScaffoldRole.Detail
                             )
                         }
-                    }
+                    },
+                    onFavoriteClick = viewModel::onFavoriteClick,
+                    onFavoritesFilterChanged = viewModel::onFavoritesFilterChanged
                 )
             }
         },
         detailPane = {
             AnimatedPane {
-                CoinDetailScreen(state = state)
+                CoinDetailScreen(
+                    state = state,
+                    onBackClick = {
+                        scope.launch {
+                            listDetailNavigator.navigateBack()
+                        }
+                    },
+                    onFavoriteClick = viewModel::onFavoriteClick
+                )
             }
         },
         modifier = modifier

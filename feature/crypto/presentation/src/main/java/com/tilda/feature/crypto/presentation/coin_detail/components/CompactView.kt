@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +42,8 @@ fun CompactView(
     coinUi: CoinUi,
     isFoldable: Boolean,
     isLandscape: Boolean,
+    onBackClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -62,25 +65,45 @@ fun CompactView(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (!isFoldable && !isLandscape) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_back),
-                    contentDescription = stringResource(R.string.content_description_back_button),
-                    modifier = Modifier.size(24.dp),
-                    tint = MaterialTheme.colorScheme.outline
-                )
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = Modifier.size(48.dp)
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_back),
+                        contentDescription = stringResource(
+                            R.string.content_description_back_button
+                        ),
+                        modifier = Modifier.size(24.dp),
+                        tint = MaterialTheme.colorScheme.outline
+                    )
+                }
             } else {
-                Spacer(modifier = Modifier.size(24.dp))
+                Spacer(modifier = Modifier.size(48.dp))
             }
             CoinTitle(
                 coinUi.name,
                 coinUi.symbol
             )
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_star),
-                contentDescription = "Favorite button",
-                modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.outline
-            )
+            IconButton(
+                onClick = onFavoriteClick,
+                modifier = Modifier.size(48.dp)
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_star),
+                    contentDescription = if (coinUi.isFavorite) {
+                        "Remove from watchlist"
+                    } else {
+                        "Add to watchlist"
+                    },
+                    modifier = Modifier.size(24.dp),
+                    tint = if (coinUi.isFavorite) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.outline
+                    }
+                )
+            }
         }
         Spacer(modifier = Modifier.height(32.dp))
         Row(
@@ -143,7 +166,9 @@ private fun CompactViewPreview() {
         CompactView(
             coinUi = previewCoin,
             isFoldable = false,
-            isLandscape = false
+            isLandscape = false,
+            onBackClick = {},
+            onFavoriteClick = {}
         )
     }
 }

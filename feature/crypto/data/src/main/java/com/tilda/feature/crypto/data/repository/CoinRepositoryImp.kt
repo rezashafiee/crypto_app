@@ -6,6 +6,7 @@ import androidx.paging.map
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.domain.util.Result
+import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.data.mapper.toCoin
 import com.tilda.feature.crypto.domain.model.Coin
@@ -18,13 +19,28 @@ import javax.inject.Inject
 
 class CoinRepositoryImp @Inject constructor(
     private val pager: Pager<Int, CoinEntity>,
-    private val coinRemoteDataSource: CoinRemoteDataSource
+    private val coinRemoteDataSource: CoinRemoteDataSource,
+    private val coinLocalDataSource: CoinLocalDataSource
 ) : CoinRepository {
 
     /** Maps paged [CoinEntity] items from Room into domain [Coin] models. */
     override fun getPagedCoins(): Flow<PagingData<Coin>> {
         return pager.flow.map { pagingData ->
             pagingData.map { coinEntity -> coinEntity.toCoin() }
+        }
+    }
+
+    override fun getFavoriteCoinIds(): Flow<Set<Int>> {
+        return coinLocalDataSource.getFavoriteCoinIds().map { favoriteIds ->
+            favoriteIds.toSet()
+        }
+    }
+
+    override suspend fun setCoinFavorite(coinId: Int, isFavorite: Boolean) {
+        if (isFavorite) {
+            coinLocalDataSource.addFavoriteCoin(coinId)
+        } else {
+            coinLocalDataSource.deleteFavoriteCoin(coinId)
         }
     }
 

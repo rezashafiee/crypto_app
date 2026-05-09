@@ -25,6 +25,7 @@ data class CoinUi(
     val marketCapShorted: DisplayableNumber,
     val priceChange24h: DisplayableNumber,
     val priceChangePercentage24h: DisplayableNumber,
+    val isFavorite: Boolean = false,
     val coinPriceHistory: List<CoinPrice> = emptyList(),
 )
 
@@ -77,6 +78,7 @@ fun Coin.toCoinUi(): CoinUi {
         priceChange24h = priceChange24h.toDisplayablePrice(referenceChange = priceChange24h)
             .addCurrencySign(),
         priceChangePercentage24h = priceChangePercentage24h.toDisplayableNumber(),
+        isFavorite = isFavorite,
     )
 }
 

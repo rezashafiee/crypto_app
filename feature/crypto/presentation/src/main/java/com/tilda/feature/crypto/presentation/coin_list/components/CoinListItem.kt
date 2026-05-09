@@ -11,11 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -25,12 +29,14 @@ import com.tilda.core.presentation.components.CoinTitle
 import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.core.presentation.theme.greenDark
 import com.tilda.core.presentation.theme.greenLight
+import com.tilda.feature.crypto.presentation.R
 import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
 fun CoinListItem(
     coinUi: CoinUi,
+    onFavoriteClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -96,6 +102,25 @@ fun CoinListItem(
                     },
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 10.sp,
+                )
+            }
+            IconButton(
+                onClick = onFavoriteClick,
+                modifier = Modifier.size(40.dp)
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_star),
+                    contentDescription = if (coinUi.isFavorite) {
+                        "Remove from watchlist"
+                    } else {
+                        "Add to watchlist"
+                    },
+                    modifier = Modifier.size(22.dp),
+                    tint = if (coinUi.isFavorite) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.outline
+                    }
                 )
             }
         }

@@ -5,6 +5,7 @@ import androidx.room.withTransaction
 import com.google.common.truth.Truth.assertThat
 import com.tilda.core.data.db.CoinDatabase
 import com.tilda.core.data.db.dao.CoinDao
+import com.tilda.core.data.db.dao.FavoriteCoinDao
 import com.tilda.core.data.db.model.CoinEntity
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -25,12 +26,16 @@ class CoinLocalDataSourceImpTest {
     @MockK(relaxed = true)
     lateinit var coinDao: CoinDao
 
+    @MockK(relaxed = true)
+    lateinit var favoriteCoinDao: FavoriteCoinDao
+
     private lateinit var dataSource: CoinLocalDataSourceImp
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         coEvery { coinDatabase.coinDao() } returns coinDao
+        coEvery { coinDatabase.favoriteCoinDao() } returns favoriteCoinDao
         dataSource = CoinLocalDataSourceImp(coinDatabase)
     }
 

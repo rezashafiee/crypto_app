@@ -14,12 +14,15 @@ import androidx.compose.ui.unit.dp
 import com.tilda.core.presentation.util.LocalDeviceWindowInfo
 import com.tilda.feature.crypto.presentation.coin_detail.components.CompactView
 import com.tilda.feature.crypto.presentation.coin_list.CoinListUiState
+import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
 fun CoinDetailScreen(
     state: CoinListUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
+    onFavoriteClick: (CoinUi) -> Unit = {}
 ) {
 
     if (state.selectedCoin != null) {
@@ -32,7 +35,9 @@ fun CoinDetailScreen(
                 CompactView(
                     coin,
                     deviceWindowInfo.foldableInfo.isFoldable,
-                    deviceWindowInfo.orientationInfo.isLandscape
+                    deviceWindowInfo.orientationInfo.isLandscape,
+                    onBackClick = onBackClick,
+                    onFavoriteClick = { onFavoriteClick(coin) }
                 )
             } else {
                 Box(

@@ -3,6 +3,7 @@ package com.tilda.feature.crypto.data.repository
 import androidx.paging.Pager
 import com.tilda.core.data.db.model.CoinEntity
 import com.tilda.core.domain.util.Result.Success
+import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 import com.tilda.feature.crypto.data.datasource.CoinRemoteDataSource
 import com.tilda.feature.crypto.domain.model.CoinPrice
 import io.mockk.MockKAnnotations
@@ -22,12 +23,15 @@ class CoinRepositoryImpTest {
     @MockK(relaxed = true)
     lateinit var remote: CoinRemoteDataSource
 
+    @MockK(relaxed = true)
+    lateinit var local: CoinLocalDataSource
+
     private lateinit var repo: CoinRepositoryImp
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        repo = CoinRepositoryImp(pager, remote)
+        repo = CoinRepositoryImp(pager, remote, local)
     }
 
     @Test
