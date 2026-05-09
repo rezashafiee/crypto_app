@@ -1,9 +1,9 @@
 # Crypto App
 
 Crypto App is an Android application designed to track cryptocurrency information and market news.
-**It serves as a showcase project demonstrating how to implement an Android application using Clean
-Architecture and a modular structure.** It allows users to browse a list of cryptocurrencies, view
-details for specific coins, and read the latest crypto news.
+It uses Clean Architecture and a modular structure to keep data, domain, and presentation concerns
+separated. Users can browse a list of cryptocurrencies, view details for specific coins, and read
+the latest crypto news.
 
 ## Features
 
