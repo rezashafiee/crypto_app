@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class CoinsRemoteMediator @Inject constructor(
+internal class CoinsRemoteMediator @Inject constructor(
     private val remoteDataSource: CoinRemoteDataSource,
     private val localDataSource: CoinLocalDataSource
 ) : RemoteMediator<Int, CoinEntity>() {

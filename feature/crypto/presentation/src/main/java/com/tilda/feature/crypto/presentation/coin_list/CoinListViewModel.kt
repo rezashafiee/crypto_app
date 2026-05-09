@@ -42,7 +42,7 @@ class CoinListViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private val _events = Channel<CoinListEvent>()
-    val events = _events.receiveAsFlow()
+    internal val events = _events.receiveAsFlow()
 
     private val showFavoritesOnly = MutableStateFlow(false)
 

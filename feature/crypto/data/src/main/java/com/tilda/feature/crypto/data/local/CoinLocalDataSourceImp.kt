@@ -8,7 +8,7 @@ import com.tilda.feature.crypto.data.datasource.CoinLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CoinLocalDataSourceImp @Inject constructor(
+internal class CoinLocalDataSourceImp @Inject constructor(
     private val coinDatabase: CoinDatabase
 ) : CoinLocalDataSource {
 

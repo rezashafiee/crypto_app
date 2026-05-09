@@ -44,7 +44,7 @@ private enum class TopLevelDestination(
 }
 
 @Composable
-fun CryptoAppScaffold(
+internal fun CryptoAppScaffold(
     modifier: Modifier = Modifier
 ) {
     var selectedDestination by rememberSaveable { mutableStateOf(TopLevelDestination.Coins) }

@@ -11,7 +11,7 @@ import com.tilda.feature.crypto.domain.model.CoinPrice
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
-class CoinRemoteDataSourceImp @Inject constructor(
+internal class CoinRemoteDataSourceImp @Inject constructor(
     private val coinApiService: CoinApiService
 ) : CoinRemoteDataSource {
 

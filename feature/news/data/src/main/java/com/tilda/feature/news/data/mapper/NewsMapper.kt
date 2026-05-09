@@ -8,7 +8,7 @@ import java.time.ZoneId
 
 private const val CATEGORY_SEPARATOR = "||"
 
-fun NewsArticleDto.toNewsArticle(): NewsArticle {
+internal fun NewsArticleDto.toNewsArticle(): NewsArticle {
     val fallbackId = listOfNotNull(
         guid,
         id?.toString(),
@@ -34,7 +34,7 @@ fun NewsArticleDto.toNewsArticle(): NewsArticle {
     )
 }
 
-fun NewsArticle.toNewsEntity(
+internal fun NewsArticle.toNewsEntity(
     cachedAtEpochSeconds: Long = System.currentTimeMillis() / 1000
 ): NewsEntity {
     return NewsEntity(
@@ -51,7 +51,7 @@ fun NewsArticle.toNewsEntity(
     )
 }
 
-fun NewsEntity.toNewsArticle(): NewsArticle {
+internal fun NewsEntity.toNewsArticle(): NewsArticle {
     return NewsArticle(
         id = id,
         title = title,

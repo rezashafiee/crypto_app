@@ -35,7 +35,7 @@ import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
-fun CompactView(
+internal fun CompactView(
     coinUi: CoinUi,
     isFoldable: Boolean,
     isLandscape: Boolean,

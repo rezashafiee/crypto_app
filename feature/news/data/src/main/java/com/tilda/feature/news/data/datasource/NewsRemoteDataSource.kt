@@ -4,7 +4,7 @@ import com.tilda.core.domain.util.NetworkError
 import com.tilda.core.domain.util.Result
 import com.tilda.feature.news.domain.model.NewsArticle
 
-interface NewsRemoteDataSource {
+internal interface NewsRemoteDataSource {
     suspend fun getNews(
         limit: Int,
         toTs: Long? = null

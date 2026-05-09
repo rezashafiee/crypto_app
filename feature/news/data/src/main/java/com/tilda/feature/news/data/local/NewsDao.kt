@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface NewsDao {
+internal interface NewsDao {
 
     @Query("SELECT * FROM news_articles ORDER BY publishedOnEpochSeconds DESC, id DESC")
     fun getPagingSource(): PagingSource<Int, NewsEntity>

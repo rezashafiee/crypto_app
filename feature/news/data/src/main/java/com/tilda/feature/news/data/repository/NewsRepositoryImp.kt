@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class NewsRepositoryImp @Inject constructor(
+internal class NewsRepositoryImp @Inject constructor(
     private val pager: Pager<Int, NewsEntity>
 ) : NewsRepository {
     override fun getPagedNews(): Flow<PagingData<NewsArticle>> {

@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class NewsResponse(
+internal data class NewsResponse(
     @field:Json(name = "Data")
     val data: List<NewsArticleDto> = emptyList()
 )
 
 @JsonClass(generateAdapter = true)
-data class NewsArticleDto(
+internal data class NewsArticleDto(
     @field:Json(name = "ID")
     val id: Long? = null,
     @field:Json(name = "GUID")
@@ -34,7 +34,7 @@ data class NewsArticleDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class NewsSourceDto(
+internal data class NewsSourceDto(
     @field:Json(name = "NAME")
     val name: String? = null,
     @field:Json(name = "URL")
@@ -42,7 +42,7 @@ data class NewsSourceDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class NewsCategoryDto(
+internal data class NewsCategoryDto(
     @field:Json(name = "CATEGORY")
     val category: String? = null,
     @field:Json(name = "NAME")

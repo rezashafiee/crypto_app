@@ -5,7 +5,7 @@ import com.tilda.core.data.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
-object HttpClientFactory {
+internal object HttpClientFactory {
 
     fun create(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {

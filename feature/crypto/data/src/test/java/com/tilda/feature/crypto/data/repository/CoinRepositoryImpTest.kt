@@ -18,13 +18,13 @@ import java.time.ZonedDateTime
 class CoinRepositoryImpTest {
 
     @MockK(relaxed = true)
-    lateinit var pager: Pager<Int, CoinEntity>
+    private lateinit var pager: Pager<Int, CoinEntity>
 
     @MockK(relaxed = true)
-    lateinit var remote: CoinRemoteDataSource
+    private lateinit var remote: CoinRemoteDataSource
 
     @MockK(relaxed = true)
-    lateinit var local: CoinLocalDataSource
+    private lateinit var local: CoinLocalDataSource
 
     private lateinit var repo: CoinRepositoryImp
 

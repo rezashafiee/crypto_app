@@ -14,7 +14,7 @@ import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
-fun ChartComponent(
+internal fun ChartComponent(
     coin: CoinUi,
     modifier: Modifier = Modifier
 ) {

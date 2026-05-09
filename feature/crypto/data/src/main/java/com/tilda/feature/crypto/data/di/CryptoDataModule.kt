@@ -27,7 +27,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CryptoDataModule {
+internal abstract class CryptoDataModule {
 
     @Binds
     @Singleton

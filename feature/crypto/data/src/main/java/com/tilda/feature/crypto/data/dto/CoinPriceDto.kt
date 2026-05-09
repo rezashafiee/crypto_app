@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CoinPriceDto(
+internal data class CoinPriceDto(
     @field:Json(name = "CLOSE")
     val closingPrice: Double,
     @field:Json(name = "OPEN")

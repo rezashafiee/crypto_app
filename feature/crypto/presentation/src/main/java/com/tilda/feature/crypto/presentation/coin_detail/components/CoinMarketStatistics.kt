@@ -8,7 +8,7 @@ import com.tilda.feature.crypto.presentation.models.toDisplayableNumber
 import com.tilda.feature.crypto.presentation.models.toDisplayablePrice
 
 @Composable
-fun CoinMarketStatistics(
+internal fun CoinMarketStatistics(
     coinUi: CoinUi,
     modifier: Modifier = Modifier
 ) {

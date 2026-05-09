@@ -21,7 +21,7 @@ import com.tilda.core.presentation.theme.CryptoTheme
 import com.tilda.feature.crypto.presentation.R
 
 @Composable
-fun StatisticsComponent(
+internal fun StatisticsComponent(
     marketCap: String,
     volume24h: String,
     popularity: String,
@@ -86,7 +86,7 @@ private fun StatisticsComponentPreview() {
 
 
 @Composable
-fun LabelComponent(
+internal fun LabelComponent(
     text: String,
 ) {
     Text(
@@ -98,7 +98,7 @@ fun LabelComponent(
 }
 
 @Composable
-fun PriceComponent(
+internal fun PriceComponent(
     text: String,
 ) {
     Text(

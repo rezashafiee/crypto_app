@@ -4,7 +4,7 @@ import androidx.room.withTransaction
 import com.tilda.feature.news.data.datasource.NewsLocalDataSource
 import javax.inject.Inject
 
-class NewsLocalDataSourceImp @Inject constructor(
+internal class NewsLocalDataSourceImp @Inject constructor(
     private val newsDatabase: NewsDatabase
 ) : NewsLocalDataSource {
 

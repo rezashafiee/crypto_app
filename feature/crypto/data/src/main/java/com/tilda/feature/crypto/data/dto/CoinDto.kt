@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CoinDto(
+internal data class CoinDto(
     @field:Json(name = "ID")
     val id: Int,
     @field:Json(name = "TOPLIST_BASE_RANK")
@@ -30,7 +30,7 @@ data class CoinDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class Rank(
+internal data class Rank(
     @field:Json(name = "TOTAL_MKT_CAP_USD")
     val marketCapRank: Short
 )

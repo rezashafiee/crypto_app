@@ -9,7 +9,7 @@ import com.tilda.feature.news.presentation.news.CryptoNewsScreen
 import com.tilda.feature.news.presentation.news.CryptoNewsViewModel
 
 @Composable
-fun AdaptiveNewsListDetailPane(
+internal fun AdaptiveNewsListDetailPane(
     modifier: Modifier = Modifier,
     viewModel: CryptoNewsViewModel = hiltViewModel()
 ) {

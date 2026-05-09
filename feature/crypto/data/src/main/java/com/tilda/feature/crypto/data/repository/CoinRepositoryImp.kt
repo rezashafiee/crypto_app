@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
-class CoinRepositoryImp @Inject constructor(
+internal class CoinRepositoryImp @Inject constructor(
     private val pager: Pager<Int, CoinEntity>,
     private val coinRemoteDataSource: CoinRemoteDataSource,
     private val coinLocalDataSource: CoinLocalDataSource

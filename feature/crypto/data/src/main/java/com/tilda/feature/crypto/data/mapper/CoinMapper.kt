@@ -9,7 +9,7 @@ import java.time.Instant
 import java.time.ZoneId
 
 /** Maps a remote [CoinDto] object to the domain [Coin] model. */
-fun CoinDto.toCoin() = Coin(
+internal fun CoinDto.toCoin() = Coin(
     id = id,
     name = name,
     currentPrice = priceUsd,
@@ -23,7 +23,7 @@ fun CoinDto.toCoin() = Coin(
 )
 
 /** Maps a local [CoinEntity] object to the domain [Coin] model. */
-fun CoinEntity.toCoin() = Coin(
+internal fun CoinEntity.toCoin() = Coin(
     id = id,
     name = name,
     currentPrice = currentPrice,
@@ -37,7 +37,7 @@ fun CoinEntity.toCoin() = Coin(
 )
 
 /** Maps a domain [Coin] object to a local [CoinEntity]. */
-fun Coin.toCoinEntity() = CoinEntity(
+internal fun Coin.toCoinEntity() = CoinEntity(
     id = id,
     name = name,
     currentPrice = currentPrice,
@@ -52,7 +52,7 @@ fun Coin.toCoinEntity() = CoinEntity(
 
 
 /** Converts a remote [CoinPriceDto] into a domain [CoinPrice] in UTC time. */
-fun CoinPriceDto.toCoinPrice(): CoinPrice {
+internal fun CoinPriceDto.toCoinPrice(): CoinPrice {
     return CoinPrice(
         openingPrice = openingPrice,
         closingPrice = closingPrice,

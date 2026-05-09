@@ -38,7 +38,7 @@ import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
-fun TabletView(
+internal fun TabletView(
     coinUi: CoinUi,
     showBackButton: Boolean,
     onBackClick: () -> Unit,

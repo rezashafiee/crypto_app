@@ -2,7 +2,7 @@ package com.tilda.feature.news.data.datasource
 
 import com.tilda.feature.news.data.local.NewsEntity
 
-interface NewsLocalDataSource {
+internal interface NewsLocalDataSource {
     suspend fun getItemsCount(): Int
 
     suspend fun getLastUpdated(): Long?

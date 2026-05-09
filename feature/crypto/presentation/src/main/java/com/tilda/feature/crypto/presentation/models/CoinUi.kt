@@ -37,7 +37,7 @@ data class DisplayableNumber(
 
 
 /** Formats a [Double] with two decimal digits for UI display. */
-fun Double.toDisplayableNumber(): DisplayableNumber {
+internal fun Double.toDisplayableNumber(): DisplayableNumber {
     return DisplayableNumber(
         value = this,
         formatted = formatNumber(
@@ -53,7 +53,7 @@ fun Double.toDisplayableNumber(): DisplayableNumber {
  * The displayed precision is derived from the related price change so each coin can show the
  * smallest useful movement without applying a fixed threshold across all prices.
  */
-fun Double.toDisplayablePrice(referenceChange: Double = this): DisplayableNumber {
+internal fun Double.toDisplayablePrice(referenceChange: Double = this): DisplayableNumber {
     return DisplayableNumber(
         value = this,
         formatted = formatNumber(
@@ -64,7 +64,7 @@ fun Double.toDisplayablePrice(referenceChange: Double = this): DisplayableNumber
 }
 
 /** Maps a domain [Coin] into [CoinUi] with display-ready numeric fields. */
-fun Coin.toCoinUi(): CoinUi {
+internal fun Coin.toCoinUi(): CoinUi {
     return CoinUi(
         id = id,
         rank = rank,
@@ -83,7 +83,7 @@ fun Coin.toCoinUi(): CoinUi {
 }
 
 /** Prefixes this display value with a dollar sign. */
-fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
+internal fun DisplayableNumber.addCurrencySign(): DisplayableNumber {
     return copy(formatted = "$$formatted")
 }
 

@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
-fun AdaptiveCoinListDetailPane(
+internal fun AdaptiveCoinListDetailPane(
     modifier: Modifier = Modifier,
     viewModel: CoinListViewModel = hiltViewModel()
 ) {

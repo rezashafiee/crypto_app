@@ -34,7 +34,7 @@ import com.tilda.feature.crypto.presentation.models.CoinUi
 import com.tilda.feature.crypto.presentation.models.previewCoin
 
 @Composable
-fun CoinListItem(
+internal fun CoinListItem(
     coinUi: CoinUi,
     onFavoriteClick: () -> Unit = {},
     modifier: Modifier = Modifier

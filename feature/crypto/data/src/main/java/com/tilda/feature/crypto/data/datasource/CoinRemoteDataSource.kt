@@ -6,7 +6,7 @@ import com.tilda.feature.crypto.domain.model.Coin
 import com.tilda.feature.crypto.domain.model.CoinPrice
 import java.time.ZonedDateTime
 
-interface CoinRemoteDataSource {
+internal interface CoinRemoteDataSource {
     suspend fun getCoins(
         pageSize: Int,
         page: Int,

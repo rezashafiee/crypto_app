@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 /** Maps thrown exceptions into domain-friendly [NetworkError] values. */
-fun Throwable.toNetworkError(): NetworkError {
+internal fun Throwable.toNetworkError(): NetworkError {
     return when (this) {
         is UnknownHostException -> NetworkError.NoInternetError(message.orEmpty())
         is SocketTimeoutException -> NetworkError.TimeoutError(message.orEmpty())

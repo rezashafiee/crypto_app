@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CoinHistoryResponse(
+internal data class CoinHistoryResponse(
     @field:Json(name = "Data")
     val data: List<CoinPriceDto>
 )

@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NewsApiService {
+internal interface NewsApiService {
     @GET("news/v1/article/list")
     suspend fun getNews(
         @Query("lang") language: String,

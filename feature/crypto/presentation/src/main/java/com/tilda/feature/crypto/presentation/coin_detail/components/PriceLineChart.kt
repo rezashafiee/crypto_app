@@ -57,7 +57,7 @@ private val ChartMarkerSubtitleFontSize = 10.sp
 private const val Y_LABEL_COUNT = 6
 
 @Composable
-fun PriceLineChart(
+internal fun PriceLineChart(
     history: List<CoinPrice>,
     modifier: Modifier = Modifier
 ) {

@@ -18,7 +18,7 @@ import com.tilda.core.presentation.theme.greenDark
 import com.tilda.core.presentation.theme.greenLight
 
 @Composable
-fun PriceChangeText(
+internal fun PriceChangeText(
     priceChange: DisplayableNumber,
     priceChangePercentage24h: DisplayableNumber
 ) {

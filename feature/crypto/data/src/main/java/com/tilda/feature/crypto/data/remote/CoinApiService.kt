@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CoinApiService {
+internal interface CoinApiService {
 
     @GET("asset/v1/top/list")
     suspend fun getCoins(
@@ -24,4 +24,3 @@ interface CoinApiService {
         @Query("to_ts") toTs: Long
     ): Response<CoinHistoryResponse>
 }
-

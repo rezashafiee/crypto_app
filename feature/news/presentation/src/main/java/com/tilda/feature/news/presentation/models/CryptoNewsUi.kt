@@ -25,7 +25,7 @@ private val NewsDateFormatter = DateTimeFormatter.ofPattern(
     Locale.getDefault()
 )
 
-fun NewsArticle.toCryptoNewsUi(): CryptoNewsUi {
+internal fun NewsArticle.toCryptoNewsUi(): CryptoNewsUi {
     val normalizedBody = body.replace(Regex("\\s+"), " ").trim()
     val excerpt = if (normalizedBody.length > 180) {
         "${normalizedBody.take(180)}..."

@@ -8,7 +8,7 @@ import com.tilda.feature.news.data.mapper.toNewsArticle
 import com.tilda.feature.news.domain.model.NewsArticle
 import javax.inject.Inject
 
-class NewsRemoteDataSourceImp @Inject constructor(
+internal class NewsRemoteDataSourceImp @Inject constructor(
     private val newsApiService: NewsApiService
 ) : NewsRemoteDataSource {
 
