@@ -36,11 +36,33 @@ the latest crypto news.
     </td>
   </tr>
   <tr>
+    <td style="text-align: center;">
+      <img src="docs/screenshots/5.png" width="180"/>
+    </td>
+    <td style="text-align: center;">
+      <img src="docs/screenshots/6.png" width="180"/>
+    </td>
+    <td style="text-align: center;">
+      <img src="docs/screenshots/7.png" width="180"/>
+    </td>
+    <td style="text-align: center;">
+      <img src="docs/screenshots/8.png" width="180"/>
+    </td>
+  </tr>
+  <tr>
     <td colspan="2" style="text-align: center;">
-      <img src="docs/screenshots/5.png" width="360"/>
+      <img src="docs/screenshots/9.png" width="360"/>
     </td>
     <td colspan="2" style="text-align: center;">
-      <img src="docs/screenshots/6.png" width="360"/>
+      <img src="docs/screenshots/10.png" width="360"/>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">
+      <img src="docs/screenshots/11.png" width="360"/>
+    </td>
+    <td colspan="2" style="text-align: center;">
+      <img src="docs/screenshots/12.png" width="360"/>
     </td>
   </tr>
 </table>

@@ -14,13 +14,6 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.tilda.feature.crypto.data"
-    defaultConfig {
-        buildConfigField(
-            "String",
-            "API_KEY",
-            "\"${localProperties.getProperty("API_KEY")}\""
-        )
-    }
 
     buildTypes {
         release {

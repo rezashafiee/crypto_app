@@ -1,11 +1,27 @@
+import java.util.Properties
+
 plugins {
     id("com.tilda.android.library")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("secret.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
 android {
     namespace = "com.tilda.core.data"
+    
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"${localProperties.getProperty("API_KEY")}\""
+        )
+    }
 
     buildTypes {
         release {
